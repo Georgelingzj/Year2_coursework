@@ -1,0 +1,76 @@
+case 1:
+	user input: This is %d year, %d month, %d day
+	first variable input: 2019
+	second variable input: 12
+	third variable input: 14
+	output: This is 2019 year, 12 month, 14 day
+
+case 2:
+	user input: the first character of name is %c,second is %c, third is %c
+	first variable input: l
+	second variable input: z
+	third variable input: j
+	output: the first character of name is l,second is z, third is j
+
+case 3:
+	user input: When two people meet,they should say %s, when they ready to leave, they should say %s
+	first variable input: "hi"
+	second variable input: "see you again"
+	output: When two people meet,they should say "hi"
+		, when they ready to leave, they should say "see you again"
+
+case 4:
+	user input: my name is %s and i'm %d years old
+	first variable: Zijian Ling
+	second variable: 20
+	output: my name is Zijian Ling
+ 		and i'm 20 years old
+
+case 5:
+	user input: the name of university is %s, it's %c
+	first variable: the University of Nottingham Ningbo China
+	second variable: A
+	output: the name of university is the University of Nottingham Ningbo China
+		, it's A
+	
+case 6:
+	user input: I live in %S, there is %d km from here
+	first variable: hangzhou
+	second variable: 101
+	output: I live in HANGZHOU
+		, there is 101 km from here
+
+case 7:
+	user input: the percent sign is %%, its %s is %d
+	first variable: %           (notice: please press 'enter' after enter '%'!)
+	second varible: ASCII
+	third variable: 32
+	output: the percent sign is %, its ASCII
+		 is 32
+
+case 8:
+	user input: only %c,       %d
+	first variable: u
+	second variable: 12345
+	output: only u,       12345
+
+case 9:
+	user input: i'd like to attend a %%5 university for %s in %d
+	first variable: %
+	second variable: postgraduate
+	third variable: 2022
+	output: i'd like to attend a %5 university for postgraduate
+ 		in 2020
+
+case 10
+	user input: %s %s %S
+	first variable:i have spend lots of time on cw of this module
+	second variable:finally done it
+	third variable: i wish i can have a good mark!
+	output: i have spend lots of time on cw of this module
+ 		finally done it
+ 		I WISH I CAN HAVE A GOOD MARK!
+
+
+
+

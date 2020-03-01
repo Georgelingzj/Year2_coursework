@@ -1,0 +1,101 @@
+/**
+ * Exponential16:
+ * the exponential two 16-bit values
+ * the a <=9 and the b<=5
+ * if out is more than 32767, than of will be set to 1.Otherwise, of will be 0
+ * out = a^b
+ * NOTICE:All comments are written BELOW the line code
+ */
+
+CHIP Exponential16 {
+    IN a[16], b[16];
+    OUT out[16],of;
+
+    PARTS:
+    // Put you code here
+	Add16(a=b,b=true,out=b1);
+	//b-1
+
+	Or16(a=b1,b=false,out[0]=decide10);
+	Or16(a=b1,b=false,out[1]=decide11);
+	Or16(a=b1,b=false,out[2]=decide12);
+	//2^3 = 8>5.
+	//use decide10&11&12 to store the last three bits of b
+	Or16(a=b1,b=false,out[3]=decideminus1);
+	//If b become negative, decideminus1 will be 1
+	Or(a=decide10,b=decide11,out=decide13);
+	Or(a=decide13,b=decide12,out=decide111);
+	Xor(a=decideminus1,b=decide111,out=decide1);
+	//If any of decide10||11||12 is 1 and decideminus1 is 0,means b is positive,than do a*a
+	Multiply16(x=a,y=a,out=preout1);
+	//a*a
+	Inc16(in=false,out=numberone);
+	//get number 1
+	Mux16(a=numberone,b=preout1,sel=decide1,out=out1);
+	//If b>0,output a*a.Otherwise,output 1 in this step
+	
+	
+	Add16(a=b1,b=true,out=b2);
+	//b-1
+
+	
+	Or16(a=b2,b=false,out[0]=decide20);
+	Or16(a=b2,b=false,out[1]=decide21);
+	Or16(a=b2,b=false,out[2]=decide22);
+	//use decide20&21&22 to store the last three bits of b
+	Or16(a=b2,b=false,out[3]=decideminus2);
+	//If b become negative, decideminus2 will be 1
+	Or(a=decide20,b=decide21,out=decide23);
+	Or(a=decide23,b=decide22,out=decide222);
+	Xor(a=decideminus2,b=decide222,out=decide2);
+	//If any of decide20||21||22 is 1 and decideminus2 is 0,means b is positive,than do (output from last step)*a
+	Multiply16(x=out1,y=a,out=preout2);
+	Mux16(a=out1,b=preout2,sel=decide2,out=out2);
+	//If b>0,output (output from last step)*a.Otherwise,output(output from last step)in this step
+
+	Add16(a=b2,b=true,out=b3);
+	//b-1
+
+	
+	Or16(a=b3,b=false,out[0]=decide30);
+	Or16(a=b3,b=false,out[1]=decide31);
+	Or16(a=b3,b=false,out[2]=decide32);
+	//use decide30&31&32 to store the last three bits of b
+	Or16(a=b3,b=false,out[3]=decideminus3);
+	//If b become negative, decideminus3 will be 1
+	Or(a=decide30,b=decide31,out=decide33);
+	Or(a=decide33,b=decide32,out=decide333);
+	Xor(a=decideminus3,b=decide333,out=decide3);
+	//If any of decide30||31||32 is 1 and decideminus3 is 0,means b is positive,than do (output from last step)*a
+	Multiply16(x=out2,y=a,out=preout3);
+	Mux16(a=out2,b=preout3,sel=decide3,out=out3);
+	//If b>0,output (output from last step)*a.Otherwise,output(output from last step)in this step
+
+	Add16(a=b3,b=true,out=b4);
+	//b-1
+
+
+
+	Or16(a=b4,b=false,out[0]=decide40);
+	Or16(a=b4,b=false,out[1]=decide41);
+	Or16(a=b4,b=false,out[2]=decide42);
+	//use decide40&41&42 to store the last three bits of b
+	Or16(a=b4,b=false,out[3]=decideminus4);
+	//If b become negative, decideminus4 will be 1
+	Or(a=decide40,b=decide41,out=decide43);
+	Or(a=decide43,b=decide42,out=decide444);
+	Xor(a=decideminus4,b=decide444,out=decide4);
+	//If any of decide40||41||42 is 1 and decideminus4 is 0,means b is positive,than do (output from last step)*a
+	Multiply16(x=out3,y=a,out=preout4);
+	Mux16(a=out3,b=preout4,sel=decide4,out=outwait);
+	//If b>0,output (output from last step)*a.Otherwise,output(output from last step)in this step
+
+
+	//decide overflow
+	Or16(a=outwait,b=outwait,out[15]=decideof);
+	And(a=decideof,b=true,out=of);
+	//If result is overflow, decideof will be 1
+	Or16(a=outwait,b=outwait,out=out);
+	//out
+
+}

@@ -1,0 +1,45 @@
+test1:
+	user input: 1.2
+	output:	this is a float number!
+
+test2:
+	user input: 23.456
+	output: this is a float number!
+
+test3:
+	user input: 47
+	output: Input number greater than 46, the result will overflow!
+
+test4:
+	user input: 0
+	output: You have entered 0, the result is 0
+
+test5:
+	user input: -23
+	output: Error, you have enter a negative integer!
+
+test6:	user input: e
+	output: this is a character or string!
+
+test7:	user input: string
+	output: this is a character or string!
+
+test8:	user input: 5
+	output: 5
+
+test9:	user input: 5
+	output: 5
+	
+
+test10:	user input: 10
+	output: 55
+	
+
+test11:	user input: 12
+	output: 144
+	
+
+test12:	user input: 20
+	output: 6765
+	
+	

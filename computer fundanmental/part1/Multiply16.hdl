@@ -1,0 +1,121 @@
+/**
+ * Multiply16:
+ * multiplies two 16-bit values
+ * which both x and y can only be between -100 and +100
+ * out = a*b
+ * NOTICE:All comments are written BELOW the line code
+ */
+
+CHIP Multiply16 {
+    IN x[16], y[16];
+    OUT out[16];
+
+    PARTS:
+    // Put you code here
+	And(a=x[15],b=true,out=s1);
+	//get the first bit of x
+	Not16(in=x,out=prenota);
+	Inc16(in=prenota,out=nota);
+	Mux16(a=x,b=nota,sel=s1,out=a);
+	//if x is negative, make it to contrary number
+
+	And(a=y[15],b=true,out=s2);
+	//get the first bit of y
+	Not16(in=y,out=prenotb);
+	Inc16(in=prenotb,out=notb);
+	Mux16(a=y,b=notb,sel=s2,out=b);
+	//if y is negative, make it to contrary number
+	// do |x|*|y| first
+
+	Or16(a=b,b=b,out[0]=bb0);
+	Or16(a=b,b=b,out[1]=bb1);
+	Or16(a=b,b=b,out[2]=bb2);
+	Or16(a=b,b=b,out[3]=bb3);
+	Or16(a=b,b=b,out[4]=bb4);
+	Or16(a=b,b=b,out[5]=bb5);
+	Or16(a=b,b=b,out[6]=bb6);
+	//beacause the x and y is between -100 and 100
+	//so there at most need 7 bits(2^7 = 128>100) to indicate x and y
+	//from bb0 to bb6, get bits of last seven bits of b, respectively
+
+
+
+	Mux(a=false,b=true,sel=bb0,out=d0);
+	//bb0 store the first bit of b,d0 used to decice the temporary output of this step
+	Add16(a=a,b=false,out=tem1);
+	//assume first bit in b is 1
+	Mux16(a=false,b=tem1,sel=d0,out=out1);
+	//if the first bit of b is 1,get temporary value a.If not, get 0
+
+	Add16(a=a,b=a,out=shift1);
+	//shift left(a) by one
+
+	
+	Mux(a=false,b=true,sel=bb1,out=d1);
+	//bb1 store the second bit of b,d1 used to decice the temporary output of this step
+	Add16(a=out1,b=shift1,out=tem2);
+	//assume second bit in b is 1
+	Mux16(a=out1,b=tem2,sel=d1,out=out2);
+	//if the second bit of b is 1,get temporary value .If not, get as same as last step
+	
+	Add16(a=shift1,b=shift1,out=shift2);
+	//shift left(a) by one
+
+	Mux(a=false,b=true,sel=bb2,out=d2);
+	//bb2 store the third bit of b,d2 used to decice the temporary output of this step
+	Add16(a=out2,b=shift2,out=tem3);
+	//assmue third bit in b is 1
+	Mux16(a=out2,b=tem3,sel=d2,out=out3);
+	//if the third bit of b is 1,get temporary value .If not, get as same as last step
+
+	Add16(a=shift2,b=shift2,out=shift3);
+	//shift left by one
+
+	Mux(a=false,b=true,sel=bb3,out=d3);
+	//bb3 store the forth bit of b,d3 used to decice the temporary output of this step
+	Add16(a=out3,b=shift3,out=tem4);
+	//assmue forth bit in b is 1
+	Mux16(a=out3,b=tem4,sel=d3,out=out4);
+	//if the forth bit of b is 1,get temporary value .If not, get as same as last step
+
+	Add16(a=shift3,b=shift3,out=shift4);
+	//shift left by one
+
+	Mux(a=false,b=true,sel=bb4,out=d4);
+	//bb3 store the fifth bit of b,d4 used to decice the temporary output of this step
+	Add16(a=out4,b=shift4,out=tem5);
+	//assmue fifth bit in b is 1
+	Mux16(a=out4,b=tem5,sel=d4,out=out5);
+	//if the fifth bit of b is 1,get temporary value .If not, get as same as last step
+
+	Add16(a=shift4,b=shift4,out=shift5);
+	//shift left by one
+
+	Mux(a=false,b=true,sel=bb5,out=d5);
+	//bb3 store the sixth bit of b,d5 used to decice the temporary output of this step
+	Add16(a=out5,b=shift5,out=tem6);
+	//assmue sixth bit in b is 1
+	Mux16(a=out5,b=tem6,sel=d5,out=out6);
+	//if the sixth bit of b is 1,get temporary value .If not, get as same as last step
+	
+	Add16(a=shift5,b=shift5,out=shift6);
+	//shift left by one
+
+	Mux(a=false,b=true,sel=bb6,out=d6);
+	//bb3 store the seventh bit of b,d6 used to decice the temporary output of this step
+	Add16(a=out6,b=shift6,out=tem7);
+	//assmue seventh bit in b is 1
+	Mux16(a=out6,b=tem7,sel=d6,out=out7);
+	//if the seventh bit of b is 1,get temporary value .If not, get as same as last step
+	
+	Xor(a=x[15],b=y[15],out=decide);
+	//if one of the x or y is negative,the final out should be negative.Or final out should be positive
+	Not16(in=out7,out=preout);
+	Inc16(in=preout,out=finalout);
+	//get the contrary number if final out is negative
+	Mux16(a=out7,b=finalout,sel=decide,out=out);
+	//out
+
+
+
+}

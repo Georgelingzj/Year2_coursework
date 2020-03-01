@@ -1,0 +1,33 @@
+/**
+ * Substract16:
+ * subtracts two 16-bit values(a-b)
+ * if the out is more than 32767(positive number subtract negative number)
+ * Or if the out is less than -32768(negative number subtract positive number)
+ * the of will be set to 1,otherwise, the of will be 1
+ * out = a subtract b
+ */
+
+CHIP Subtract16 {
+    IN a[16], b[16];
+    OUT out[16], of;
+
+    PARTS:
+    // Put you code here
+
+	Not16(in=b,out=notb);//arithmetically,a-b = a+(-b)
+	Inc16(in=a,out=inca);//Binary number,a-b = a+(-b)+1
+	Add16(a=inca,b=notb,out[15]=resultout1);//detect whether the result is positive of negative
+	
+	Xor(a=resultout1,b=b[15],out=ofout2);
+	Not(in=ofout2,out=ofout3);//if overflow, result will have same sign with b
+
+	Xor(a=a[15],b=b[15],out=ofout1);//if and only if a and b have differenet sign, result will overflow
+	And(a=ofout1,b=ofout3,out=of);//
+	
+	Add16(a=inca,b=notb,out=outout1);//a-b
+	Or16(a=outout1,b=outout1,out=out);//out
+	
+	
+	
+
+}

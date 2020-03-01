@@ -1,0 +1,67 @@
+/**
+ * isbigger:
+ * compare two 16-bit values x and y
+ * if x is bigger than y, out = 1
+ * if x is not bigger than y, out = -1
+ * NOTICE:All comments are written BELOW the line code
+ */
+
+
+CHIP isBigger16 {
+    IN x[16], y[16];
+    OUT out[16];
+
+    PARTS:
+    // Put you code here	
+	Xor(a=x[15],b=y[15],out=decide1);
+	//firstly, have 2 big situations:same sign or different sign
+	
+	And(a=decide1,b=true,out=key1);
+	Mux(a=false,b=true,sel=key1,out=select0);
+	//sign selection
+	
+	Mux(a=true,b=false,sel=x[15],out=diffsign);  
+	//if different sign, have two small situations
+	//if x is positive,x[15]=0,diffsign = 1,x is bigger
+	// otherwise, x is negative,x[15]=1,diffsign=0,x is not bigger 
+
+	Subtract16(a=x,b=y,out[15]=outsamedecide);
+	Mux(a=true,b=false,sel=outsamedecide,out=samesign);   
+	//if same sign,have two situations
+	//if outsamedecide is 1,means (x-y)<0,so x is not bigger
+	//if outsamedecide is 0,means (x-y)>0,so x is bigger
+	//x=y will be explain later	
+	
+
+	Mux(a=samesign,b=diffsign,sel=select0,out=preout1);
+	//two big situations each contain two small situations
+
+	Mux16(a=true,b=false,sel=preout1,out[15]=preout2);
+	Add16(a=true,b=true,out=numberonepre);
+	Not16(in=numberonepre,out=numberone);
+	//get 1
+	Mux16(a=numberone,b=true,sel=preout2,out=finalpreout);
+	//numberone indicate 1,true indicate -1
+	
+	
+	Subtract16(a=x,b=y,out=equaldecide1);
+	//if x=y,equaldecide1 = 0
+	Subtract16(a=equaldecide1,b=numberone,out=equaldecide);
+	//if equaldecide1 = 0 than minus1,equaldecide is negative
+	Or16(a=equaldecide,b=equaldecide,out[15]=key);
+	//the fifteenth bit of equaldecide is 1,means x=y
+	//But it could be(x-y)<0,but in this situation,the result is always right
+	//deal with x=y
+	
+	
+	Mux16(a=finalpreout,b=true,sel=key,out=out);
+	//out
+
+	
+	
+}
+	
+	
+	
+	
+	

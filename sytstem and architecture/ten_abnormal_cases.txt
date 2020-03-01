@@ -1,0 +1,152 @@
+case1:
+	please enter what you want to print
+	%d %d %d
+	please enter first variable
+	e
+	Error! You have enter non-integer, you should enter ASCII char here.
+	please enter second variable
+	string
+	Error! You have enter non-integer, you should enter ASCII char here.
+	please enter third variable
+	1
+	The result is:
+	0 0 1
+(when you want to use %d to print integer, but enter non-integer, MARS will set the value of the register that should be stored integer to 0)
+
+case2:
+	please enter what you want to print
+	%c %c %c
+	please enter first variable
+	12
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	please enter second variable
+	string
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	please enter third variable
+	e
+	The result is:
+	  e
+
+case3:
+	please enter what you want to print
+	%d %c %s
+	please enter first variable
+	e
+	Error! You have enter non-integer, you should enter integer char here.
+	please enter second variable
+	2
+	please enter third variable
+	5
+	The result is:
+	0 2 5
+
+case4
+	please enter what you want to print
+	%d %c %%
+	please enter first variable
+	*
+	Error! You have enter non-integer, you should enter integer char here.
+	please enter second variable
+	&
+	please enter third variable
+	1
+	The result is:
+	0 & %
+
+(when you want to print '%', whatever you enter, the output will only be '%')
+
+
+case5:
+	please enter what you want to print
+	%% %%
+	please enter first variable
+	string
+	please enter second variable
+	123
+	The result is:
+	% %
+
+case6:
+	please enter what you want to print
+	%d %d %d
+	please enter first variable
+	1
+	please enter second variable
+	12.3
+	Error! You have enter non-integer, you should enter integer here.
+	please enter third variable
+	+
+	Error! You have enter non-integer, you should enter integer here.
+	The result is:
+	1 0 0
+
+((when you want to use %d to print integer, but enter non-integer, MARS will set the value of the register that should be stored integer to 0)
+
+
+case7:
+	please enter what you want to print
+	%d %d %d
+	please enter first variable
+	(press Enter)
+	Error! You enter nothing, you should enter integer here.
+	please enter second variable
+	(press Enter)
+	Error! You enter nothing, you should enter integer here.
+	please enter third variable
+	(press Enter)
+	Error! You enter nothing, you should enter integer here.
+	The result is:
+	0 0 0
+
+case8:
+	
+	please enter what you want to print
+	%c %c %c
+	please enter first variable
+	(press Enter)
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	please enter second variable
+	(press Enter)
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	please enter third variable
+	(press Enter)
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	The result is:
+	  (Empty here)
+
+case9:
+	please enter what you want to print
+	%d
+	please enter first variable
+	22138247236487326423874
+	The result is:
+	-666674366
+
+(This program cannot handle overflow, beacause if i want to detect overflow,the register inside program should have overflow first, so i can not detect it)
+	
+
+case10:
+	please enter what you want to print
+	%d %c %c
+	please enter first variable
+	%
+	Error! You have enter non-integer, you should enter integer here.
+	please enter second variable
+	2
+	please enter third variable
+	23
+	Error! You have enter non-char, you should enter ASCII char here.
+	
+	The result is:
+	0 2 
+	
+
+	
+
+	
+	

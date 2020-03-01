@@ -1,0 +1,41 @@
+/**
+ * Divide16:
+ * divide input by 2
+ * input can only be positive values
+ * fractional results should be rounded down
+ * out = in/2
+ * NOTICE:All comments are written BELOW the line code
+ */
+
+CHIP Divide16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+    // Put you code here
+	
+	And(a=false,b=false,out=out[15]);
+	//because result cannot be negative
+	
+	Or(a=in[15],b=in[15],out=out[14]);
+	Or(a=in[14],b=in[14],out=out[13]);
+	Or(a=in[13],b=in[13],out=out[12]);
+	Or(a=in[12],b=in[12],out=out[11]);
+	Or(a=in[11],b=in[11],out=out[10]);
+	Or(a=in[10],b=in[10],out=out[9]);
+	Or(a=in[9],b=in[9],out=out[8]);
+	Or(a=in[8],b=in[8],out=out[7]);
+	Or(a=in[7],b=in[7],out=out[6]);
+	Or(a=in[6],b=in[6],out=out[5]);
+	Or(a=in[5],b=in[5],out=out[4]);
+	Or(a=in[4],b=in[4],out=out[3]);
+	Or(a=in[3],b=in[3],out=out[2]);
+	Or(a=in[2],b=in[2],out=out[1]);
+	Or(a=in[1],b=in[1],out=out[0]);
+	//the input devide by 2 equals to input right shfit by one
+	//in input, from second bit to fifteenth bit become
+	// the first bit to fourteenth bit of output
+
+
+
+}

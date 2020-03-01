@@ -1,0 +1,78 @@
+/**
+ * The custom ALU (Arithmetic Logic Unit).
+ * Computes one of the following functions:
+ * x-y,x*y,x/2,x^y,decide whether x is bigger
+ * when do multiplication, both x and y can only between -100 and 100
+ * when do division,x can only be positive and fractional results should be rounded down
+ * when do exponentiation,x or y cannot be negative, maximum values of x= 9 and y = 5
+ * according to 5 input bits denoted S,M,D,F,GL
+ * In addition, the ALU computes one 1-bit outputs:
+ * if the ALU output is either positive overflow or negative overflow
+ * of will be set to 1,otherwise of will be set to 0
+ *
+ * NOTICE:All comments are written ABOVE the line code
+ */
+
+// Implementation: the custom ALU logic manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (S == 1) do x-y            // 16-bit integer subtraction
+// if (M == 1) do x*y           // 16-bit integer multiplication
+// if (D == 1) do x/2           // 16-bit integer division
+// if (F == 1) do x^y            // 16-bit integer exponentiation
+// if (GL == 1) decide if x is bigger than y     // 1-bit 
+
+// if (out>32767||out<-32768) set of = 1
+
+
+
+CHIP CWALU {
+    IN  
+        x[16], y[16], //16-bit inputs
+        S, //do subtraction:x-y?
+        M, //do multiplication: x*y?
+        D, //do divison:x/2?
+        F, //do exponentiation:x^y?
+        GL; //decide x is bigger than y?
+
+    OUT 
+        out[16], //16-bit output
+        of; // 1 if (out>32767||out<-32768), 0 otherwise
+
+    PARTS:
+   	// Put you code here:
+	
+	//if S == 1, set out = x-y
+	Subtract16(a=x,b=y,out=outsub,of=ofsub);
+	
+	//if M == 1, set out = x*y
+	Multiply16(x=x,y=y,out=outmul);
+	
+	//if D == 1, set out = x/2
+	Divide16(in=x,out=outdiv);
+	
+	//if F == 1,set out = pow(x,y)
+	Exponential16(a=x,b=y,out=outexp,of=ofexp);
+	
+	//if GL == 1, Decide if x is bigger than y, output = 1 if true, -1 if false 
+	isBigger16(x=x,y=y,out=outcmp);
+
+	//of
+	//if one of the out of subtraction or exponentiation is overflow
+	//then of will be set to 1
+	Mux(a=false,b=ofsub,sel=S,out=of1);
+	Mux(a=false,b=ofexp,sel=F,out=of2);
+	Or(a=of1,b=of2,out=of);
+
+	//out
+	//when control pin = 1, corresponding result will be output
+	//later the control pin,higher the priority
+	//for instance,both D and S are 1,finalout will be D(division)
+	Mux16(a=false,b=outsub,sel=S,out=out1);
+	Mux16(a=out1,b=outmul,sel=M,out=out2);
+	Mux16(a=out2,b=outdiv,sel=D,out=out3);
+	Mux16(a=out3,b=outexp,sel=F,out=out4);
+	Mux16(a=out4,b=outcmp,sel=GL,out=out);
+	
+
+
+}
