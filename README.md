@@ -1,8 +1,10 @@
 # Year2_coursework
 part of courseworks in computer science
 
+public my code after the results come out
 
-Just as a possible reference and personal record
+
+**Only for possible reference and personal record**
 
 
 
