@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/mainPage1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <style>
+        footer{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+        }
+
+        header{
+            
+            margin-top: 30px;
+           
+        }
+        .CoverPic{
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left:40%;
+        }
+        .myTable{
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>         
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Woolin Auto</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="book_mask.php">Book Mask</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manage.php">Manage</a>
+                    </li>
+                </ul>
+                <span class="navbar-text" id="navUserName">
+                    Welcome, <?php echo $username?>&nbsp;&nbsp;
+                </span>
+                <a href="./func/signout_post.php" id="navSignOut" class="btn btn-outline-dark m-2 my-sm-0">Sign Out</a>
+                <a href="signin_up.php" id="navSignIn" class="btn btn-outline-dark m-2 my-sm-0">Sign In</a>
+                <a href="signin_up.php" id="navSignUp" class="btn btn-outline-dark m-2 my-sm-0">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+   
+    <main>
+        <div class="myTable">
+            <table style="width: 20%;">
+                <tr>
+                  <th>UserName</th>
+                  <td>lzj</td>
+                </tr>
+              
+                <tr>
+                    <th>Phone</th>
+                    <td>13588276166</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>scyzl4@nottinghamedu.cn</td>
+                </tr>
+
+                <tr>
+                    <th>Address</th>
+                </tr>
+              </table>
+        </div>
+
+        <div class="CoverPic">
+            <img src="pic/maskCover.jpg" alt="">
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <p><a href="index.php">Woolin Auto</a> © 2020 All Right Reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

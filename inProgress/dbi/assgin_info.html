@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Info Collection</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/fontawesome/all.css">
+    
+    <link href="css/mainPage1.css" rel="stylesheet" type="text/css">
+   
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <script type = "text/javascript" src = "js/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+        // function fn1(){
+        //     var t = document.getElementById('Rep');
+        //     t.style.display = 'none'; // 隐藏
+        // }
+        
+        //get params passed in url
+        function getQueryVariable(variable){
+            var query = window.location.search.substring(1);
+            
+            var vars = ((query.split("."))[0]).split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+            }
+            return(false);
+        }
+        
+        var userID = getQueryVariable('userID');
+        
+        //decide which part of html to display
+        window.onload = function(){
+            var userType = getQueryVariable('userType');
+            if (userType === "Rep") {
+                var t = document.getElementById('Customer');
+                t.style.display = 'none';
+                
+                oFormElement = document.forms['repForm'];
+                oFormElement['repID'].value = userID;
+            }
+            else{
+                var t = document.getElementById('Rep');
+                t.style.display = 'none';
+                oFormElement = document.forms['customerForm'];
+                oFormElement['customerID'].value = userID;
+            }
+            
+        }
+        
+    </script>
+
+    <style>
+        .box1{
+           
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 600px;
+            border-width: 3px;
+            border-style:solid;
+            border-color:brown;
+        }
+        .formtitle{
+            text-align: center;
+        }
+        .leftbox{
+            float: left;
+            width: 50%;
+            padding-left: 50px;
+        }
+        .rightbox{
+            float:right;
+            width: 50px;
+            margin-right: 100px;
+            
+        }
+        .boxinside{
+            margin-top: 100px;
+        }
+        .buttoninside{
+            position: absolute;
+            margin-top: 50px;
+        }
+        
+    </style>
+    
+
+</head>
+<body>
+    
+    <div id="Rep" class="box1">
+        <h3 class="formtitle">Rep Info Assign</h3>
+        <div class="leftbox">
+            <h5 class="boxinside">Rep ID</h5>
+
+            <h5 class="boxinside">Rep Region</h5>
+
+            <h5 class="boxinside">Rep Quota</h5>
+        </div>
+
+        <div class="rightbox">
+            
+            
+            <form action="./func/assign?userType=rep.php" class="boxinside" method="POST" id="repForm">
+                <div class="boxinside">
+                    <input type="text" name="repID" id="repID" size="5">
+                </div>
+
+                <div class="boxinside">
+                    <input type="text" size="15" name="region">
+                </div>
+
+                <div class="boxinside">
+                    <input type="text" size="10" name="quota">
+                </div>
+
+                <div class="buttoninside">
+                    <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
+                </div>
+            </form>
+        </div>
+
+        
+        
+    </div>
+
+    <div id="Customer" class="box1">
+        <h3 class="formtitle">Customer Info Assign</h3>
+        <div class="leftbox">
+            <h5 class="boxinside">Customer ID</h5>
+
+            <h5 class="boxinside">Rep ID</h5>
+
+            <!-- <h5 class="boxinside">Rep Quota</h5> -->
+        </div>
+
+        <div class="rightbox">
+            <div id = "CustomerID"></div>
+            
+            <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm">
+                <div class="boxinside">
+                    <input type="text" size="5" name="customerID">
+                </div>
+
+                <div class="boxinside">
+                    <input type="text" size="10" name="repID">
+                </div>
+
+                <div class="buttoninside">
+                    <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
+                </div>
+            </form>
+        </div>
+
+        
+        
+    </div>
+
+    
+
+</body>
+</html>
