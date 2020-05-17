@@ -42,32 +42,64 @@
    
     <script type = "text/javascript">
 
+            window.onload = function() {
+                show1();
+            }
+           
+
+            function show1() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
                 
-            var url="./func/getPersonal.php";
-            $(function(){
+
+                a.style.display = '';
+                b.style.display = 'none';
+                c.style.display = 'none';
+                d.style.display = 'none';
+            }
+
+            function show2() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none'
+                b.style.display = '';
+                c.style.display = 'none';
+                d.style.display = 'none';
+            }
+
+            function show3() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none';
+                b.style.display = 'none';
+                c.style.display = '';
+                d.style.display = 'none';
+            }
+
+            function show4() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none';
+                b.style.display = 'none';
+                c.style.display = 'none';
+                d.style.display = '';
+            }
+
             
-            $.getJSON(url,function(data){
-               
-            
-                
-            // $("#mask1Storage").text(JSON.stringify(data));
-                var mydata = JSON.stringify(data);
-                var l = mydata.length;
-               
-                //slice data
-                mydata = mydata.slice(1,l-1);
-                
-                username = (JSON.parse(mydata))['usename'];
-                realname = (JSON.parse(mydata))['realname'];
-                passportID = (JSON.parse(mydata))['passportID'];
-                phone = (JSON.parse(mydata))['telephone'];
-                
-                document.getElementById("username").innerHTML = JSON.stringify((username)).slice(1,-1);
-                document.getElementById("realname").innerHTML = JSON.stringify((realname)).slice(1,-1);
-                document.getElementById("passportID").innerHTML = JSON.stringify((passportID)).slice(1,-1);
-                document.getElementById("phone").innerHTML = JSON.stringify((phone)).slice(1,-1);
-            })
-            });
     </script>
 
     
@@ -316,19 +348,21 @@ small.text-muted {
                         
                         <div class="PI">
                             <div class="sidebarp">
-                                <a href="#news">
+                                <a href="javascript:void(0);" onclick="show1()">
                                     <h4>News</h4>
                                 </a>
+                                
                             </div>
                             
                             <div class="sidebarp">
-                                <a href="#allocate">
+                                <a href="javascript:void(0);" onclick="show2()">
                                     <h4>Allocate reps</h4>
                                 </a>
+                                
                             </div>
 
                             <div class="sidebarp">
-                                <a href="#grant">
+                                <a href="javascript:void(0);" onclick="show3()">
                                     <h4>
                                         Grant quota
                                     </h4>
@@ -336,7 +370,7 @@ small.text-muted {
                             </div>
 
                             <div class="sidebarp">
-                                <a href="#data">
+                                <a href="javascript:void(0);" onclick="show4()">
                                     <h4>Check Statistics</h4>
                                 </a>
                             </div>
@@ -354,21 +388,21 @@ small.text-muted {
                         <div class="padding">
                             <div class="full col-sm-9">
                               
-                               <div id="news">
+                               <div id="news" class="d">
                                     news
                                </div>
 
 
-                               <div id="allocate">
+                               <div id="allocate" class="d">
                                     nihao
                                </div>
 
-                               <div id="grant">
-                                    
+                               <div id="grant" class="d">
+                                    hello
                                </div>
 
-                               <div id="data">
-
+                               <div id="data" class="d">
+                                    hihihi
                                </div>
                                 
                                 

@@ -41,7 +41,215 @@
         }
     ?>
 
+     <script type = "text/javascript">
+
+            window.onload = function() {
+                show1();
+                
+            }
+           
+
+            function show1() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = '';
+                b.style.display = 'none';
+                c.style.display = 'none';
+                d.style.display = 'none';
+            }
+
+            function show2() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none'
+                b.style.display = '';
+                c.style.display = 'none';
+                d.style.display = 'none';
+            }
+
+            function show3() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none';
+                b.style.display = 'none';
+                c.style.display = '';
+                d.style.display = 'none';
+            }
+
+            function show4() {
+                var a = document.getElementById('news');
+                var b = document.getElementById('allocate');
+                var c = document.getElementById('grant');
+                var d = document.getElementById('data');
+                
+
+                a.style.display = 'none';
+                b.style.display = 'none';
+                c.style.display = 'none';
+                d.style.display = '';
+            }
+
+            var urlcustomer="./func/allocate?type=customer.php";
+            var urlrep = "./func/allocate?type=rep.php"
+            var urlrepC = "./func/allocate?type=repC.php"
+            $(function(){
+            
+            $.when($.getJSON(urlcustomer,function(data){
+                
+                
+            // // $("#mask1Storage").text(JSON.stringify(data));
+                var mydata = JSON.stringify(data);
+                if (mydata === "[]") {
+                    //empty return
+                    document.getElementById("cwithout").innerHTML += "<div class = 'rc_none'>" +"No customer with complete info"+ "</div>";
+                    
+                }
+                else
+                {
+                    
+                    mydata = mydata.slice(1,-1);
+                    datac = JSON.parse(mydata)
+
+                    var html = '';
+				    for (var p in datac) {
+					    html = html + '<tr>';
+					    html = html + '<td>' + datac[p]['cID'] + '</td>';
+					    html = html + '<td>' +datac[p]['usename'] + '</td>';
+					    html = html + '<td>' + datac[p]['realname'] + '</td>';
+					    html = html + '<td>' + datac[p]['passportID'] + '</td>';
+					    html = html + '<td>' +datac[p]['telephone'] + '</td>';
+					    html = html + '<td>' + datac[p]['email'] + '</td>';
+                        html = html + '<td>' + datac[p]['region'] + '</td>';
+                        html = html + '<td>' + datac[p]['repID'] + '</td>';
+                        html = html + '<td>' + datac[p]['repUsername'] + '</td>';
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign' +" " + "Customer" + " " +datac[p]['cID']  + '</a>'
+					    html = html + '</tr>';
+                        
+				    }
+				    $('#table2').append(html);
+                }
+            
+            }),
+
+            $.getJSON(urlrep,function(data){
+            
+                
+            
+                var mydata = JSON.stringify(data);
+                if (mydata === "[]") {
+                    //empty return
+                    document.getElementById("rwithout").innerHTML += "<div class = 'rc_none'>" +"No rep with complete info"+ "</div>";
+                    
+                }
+                else
+                {
+                    mydata = mydata.slice(1,-1);
+                    datarep = JSON.parse(mydata)
+                    var i = 0;
+
+                    var html = '';
+				    for (var p in datarep) {
+					    html = html + '<tr>';
+					    html = html + '<td>' + datarep[p]['eID'] + '</td>';
+					    html = html + '<td>' +datarep[p]['username'] + '</td>';
+					    html = html + '<td>' + datarep[p]['realname'] + '</td>';
+					   
+					    html = html + '<td>' +datarep[p]['telephone'] + '</td>';
+					    html = html + '<td>' + datarep[p]['email'] + '</td>';
+                        html = html + '<td>' + datarep[p]['region'] + '</td>';
+                       
+                        html = html + '<td>' + datarep[p]['quota'] + '</td>';
+                        // html = html + '<td>' + '<a href="οnclick=work(this)" id="" class="btn btn-outline-dark m-2 my-sm-0">' + 'Assign' +" " + "Rep" + datarep[p]['eID'] + " "  + '</a>'
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+					    html = html + '</tr>';
+
+                    
+                        i = i + 1;
+                        
+                        
+				    }
+				    $('#table1').append(html);
+                    
+                }
+            
+            }),
+
+            $.getJSON(urlrepC,function(data){
+
+            var mydata = JSON.stringify(data);
+            if (mydata === "[]") {
+                //empty return
+                document.getElementById("rwithout").innerHTML += "<div class = 'rc_none'>" +"No rep with complete info"+ "</div>";
+
+            }
+            else
+            {
+                mydata = mydata.slice(1,-1);
+                datarep = JSON.parse(mydata)
+   
+                var html = '';
+                for (var p in datarep) {
+                    html = html + '<tr>';
+                    html = html + '<td>' + datarep[p]['eID'] + '</td>';
+                    html = html + '<td>' +datarep[p]['username'] + '</td>';
+                    html = html + '<td>' + datarep[p]['realname'] + '</td>';
+   
+                    html = html + '<td>' +datarep[p]['telephone'] + '</td>';
+                    html = html + '<td>' + datarep[p]['email'] + '</td>';
+                    html = html + '<td>' + datarep[p]['region'] + '</td>';
+   
+                    html = html + '<td>' + datarep[p]['quota'] + '</td>';
+                    html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+                    html = html + '</tr>';
+
+
+ 
     
+    
+                }   
+                $('#table3').append(html);
+
+                }
+
+})
+
+            )})
+
+            $(function(){
+                function Repassign(){
+                aleart("hello");
+                }   
+            });
+
+            function work(target) {
+                //e.preventDefault();
+                var name = $(target).text();
+                var name_string = name.split(" ");
+
+                var userType = name_string[1];//reps or customer
+                var userID = name_string[2];//ID of reps or customer
+               
+                var url = "assgin_info?userType=" + userType + "&" + "userID=" + userID + ".html";
+                window.location.href = url;
+                
+                
+            }
+
+            
+    </script>
+
     
     <style>
         footer{
@@ -108,6 +316,142 @@
             margin-top:200px;
             
         }
+        th {
+            padding: 20px;
+            font-size:smaller;
+        }
+        td{
+            padding:20px;
+            padding-top:10px;
+            font-size:smaller;
+        }
+        .PI2{
+            margin-top:50px;
+        }
+        .rc_none{
+            /* align-self: center; */
+            text-align: center;
+        }
+        /* move special fonts to HTML head for better performance */
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700');
+
+
+/* custom template */
+main {
+   height: 100%;
+}
+
+a {
+  color:#222222;
+}
+
+.wrapper, .row {
+   height: 100%;
+   margin-left:0;
+   margin-right:0;
+}
+
+.wrapper:before, .wrapper:after,
+.column:before, .column:after {
+    content: "";
+    display: table;
+}
+
+.wrapper:after,
+.column:after {
+    clear: both;
+}
+
+.column {
+    height: 100%;
+    overflow: auto;
+    *zoom:1;
+}
+
+.column .padding {
+    padding: 20px;
+}
+
+.box {
+  	bottom: 0; /* increase for footer use */
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color:gray;
+    background-size:cover;
+    background-attachment:fixed;
+}
+
+
+
+#main {
+    background-color:#fefefe;
+}
+#main .img-circle {
+  margin-top:18px;
+  height:70px;
+  width:70px;
+}
+
+#sidebar{
+    color:#ffffff;
+    background-color:transparent;
+	text-shadow:1px 0 1px #888888;
+    display: table-column;
+}
+
+
+
+/* center and adjust the sidebar contents on smaller devices */
+@media (max-width: 768px) {
+  #sidebar {
+    text-align:center;
+    margin:0 auto;
+    margin-top:30px;
+    font-size:26px;
+  }
+  
+}
+
+
+
+
+/* bootstrap overrides */
+
+h1,h2,h3 {
+   font-weight:800;
+   font-family:'Open Sans',arial,sans-serif;
+}
+
+.jumbotron {
+  background-color:transparent;
+}
+.label-default {
+  background-color:#dddddd;
+}
+.page-header {
+  margin-top: 55px;
+  padding-top: 9px;
+  border-top:1px solid #eeeeee;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.col-sm-9.full {
+    width: 100%;
+}
+
+small.text-muted {
+  font-family:courier,courier-new,monospace;
+}
+.sidebarp, .sidebarp a{
+    margin-bottom: 100px;
+    font-weight: bolder;
+        
+    color: aquamarine;
+}
         
     </style>
     <header>
@@ -146,34 +490,164 @@
     
     
     <main>
-    <div class="PI">
-            <div class="btn-group-vertical">
-                <div class="sidebarp">
-                    <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=customer.php'">
-                        <h4>News</h4>
-                    </button>
-                </div>
-                
-                <div class="sidebarp">
-                    <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'allocateReps.php'">
-                        <h4>Allocate reps</h4>
-                    </button>
-                </div>
-    
-                <div class="sidebarp">
-                    <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=customer.php'">
-                        <h4>Grant quota</h4>
-                    </button>
+    <div class="wrapper">
+            <div class="box">
+                <div class="row">
+                    <!-- sidebar -->
+                    <div class="column col-sm-2" id="sidebar">
+                        
+                        <div class="PI">
+                            <div class="sidebarp">
+                                <a href="javascript:void(0);" onclick="show1()">
+                                    <h4>News</h4>
+                                </a>
+                                
+                            </div>
+                            
+                            <div class="sidebarp">
+                                <a href="javascript:void(0);" onclick="show2()">
+                                    <h4>Allocate reps</h4>
+                                </a>
+                                
+                            </div>
+
+                            <div class="sidebarp">
+                                <a href="javascript:void(0);" onclick="show3()">
+                                    <h4>
+                                        Grant quota
+                                    </h4>
+                                </a>
+                            </div>
+
+                            <div class="sidebarp">
+                                <a href="javascript:void(0);" onclick="show4()">
+                                    <h4>Check Statistics</h4>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                           
+                        
+                    </div>
+                    <!-- /sidebar -->
+                  
+                    <!-- main -->
+                    <div class="column col-sm-10" id="main">
+                        <div class="padding">
+                            <div class="full col-sm-9">
+                              
+                                <div id="news" class="d">
+                                    news
+                                
+                                </div>
+
+                                <div id="allocate" class="d">
+                                <div class = "PI">
+                                        <div>
+                                            <h4>Rep List</h4>
+                                        </div>
+
+                                    <div class = "PI2">
+                                        <h5>Rep without complete information </h5>
+                                    </div>
+
+                                    <table id = "table1" border="10">
+                                        <tr>
+                                            <th>employee ID</th>
+                                            <th>username ID</th>
+                                            <th>realname</th>
+                                            <th>telephone</th>
+                                            <th>email</th>
+                                            <th>region</th>
+                                            <th>quota</th>
+                                            <th>Operate</th>
+                                        </tr>
+
+                                    </table>
+
+                                    <!-- append rep without complete information-->
+                                    <div id = "rwithout"></div>
+                                </div>
+
+        
+                                <div class = "PI">
+                                <div>
+                                    <h4>Customer List</h4>
+                                </div>
+
+                                <div class = "PI2">
+                                    <h5>Customer without complete information </h5>
+                                </div>
+
+                                <table id = "table2" border="10">
+                                    <tr>
+                                        <th>customer ID</th>
+                                        <th>username</th>
+                                        <th>realname</th>
+                                        <th>passportID</th>
+                                        <th>telephone</th>
+                                        <th>email</th>
+                                        <th>region</th>
+                                        <th>repID</th>
+                                        <th>repUsername</th>
+                                        <th>Operate</th>
+                                    </tr>
+                                </table>
+
+                                <!-- append customer without complete information-->
+                                <div id = "cwithout"></div>
+                                </div>
+                                </div>
+                            
+
+
+                                </div>
+
+                                <div id="grant" class="d">
+                                    <div class = "PI">
+                                        <div>
+                                            <h4>Rep List</h4>
+                                        </div>
+
+            
+                                    <table id = "table3" border="1">
+                                        <tr>
+                                            <th>employee ID</th>
+                                            <th>username ID</th>
+                                            <th>realname</th>
+                                            <th>telephone</th>
+                                            <th>email</th>
+                                            <th>region</th>
+                                            <th>quota</th>
+                                            <th>operate on quota</th>
                     
-                </div>
-                
-                <div class="sidebarp">
-                    <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=customer.php'">
-                        <h4>Check Statistics</h4>
-                    </button>
+                                        </tr>
+
+                                    </table>
+
+                                    <!-- append rep without complete information-->
+            
+                                    </div>
+
+                               </div>
+
+                               <div id="data" class="d">
+                                    hihihi
+                               </div>
+                                
+                               
+                               
+                                
+                             
+                              
+                            </div><!-- /col-9 -->
+                        </div><!-- /padding -->
+                    </div>
+                    <!-- /main -->
                 </div>
             </div>
-            
         </div>
     </main>
 

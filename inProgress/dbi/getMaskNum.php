@@ -39,6 +39,9 @@
 
 
             $conn = new mysqli($servername, $username, $password, $dbname);
+
+
+
             if ($_SESSION['type'] == 1) {
                 $sql = "SELECT maskNum FROM masksstorage WHERE maskName = 'mask1';";
             }

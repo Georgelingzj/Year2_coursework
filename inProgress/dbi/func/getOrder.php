@@ -50,30 +50,28 @@
             $conn = new mysqli($servername, $username, $password, $dbname);
            
             
-            $sqlForcID = "SELECT cID FROM cw2test1.customer WHERE usename = '$UserName' AND password = '$PassWord';";
             
-            
-          
-          
-            // return books in json
-            $num = $conn->query($sqlForcID);
-            
-            $row = mysqli_fetch_array($num);
-            
-            $cID = (int)$row['cID'];
-            
-            
-            $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE cID = '$cID';";
-            $orderback = $conn->query($sqlFororder);
 
             if ($userType === '1') {
+
+                $sqlForcID = "SELECT cID FROM cw2test1.customer WHERE usename = '$UserName' AND password = '$PassWord';";
+            
+                $num = $conn->query($sqlForcID);
+            
+                $row = mysqli_fetch_array($num);
+            
+                $cID = (int)$row['cID'];    
+            
+            
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE cID = '$cID';";
+                $orderback = $conn->query($sqlFororder);
                 //order within time restrict
                 $i=0;
                 $result = array();
                 while($rowOrder = mysqli_fetch_array($orderback)){
                     $time = $rowOrder['OrderTime'];
                     $is_morethan = Dtime($time);
-                    if ($is_morethan === -1) {
+                    if (($is_morethan === -1)&&($rowOrder['Orderstatus'] != '4')) {
                         $result[$i]=$rowOrder;
                         $i++;
                     }
@@ -84,15 +82,29 @@
                 echo json_encode(array($result));
                 
             }
-            else
+            
+            if($userType === '2')
             {
-                //order exceed time restrict
+
+                $sqlForcID = "SELECT cID FROM cw2test1.customer WHERE usename = '$UserName' AND password = '$PassWord';";
+            
+        
+                $num = $conn->query($sqlForcID);
+                
+                $row = mysqli_fetch_array($num);
+            
+                $cID = (int)$row['cID'];
+            
+            
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE cID = '$cID';";
+                $orderback = $conn->query($sqlFororder);
+                    //order exceed time restrict
                 $i=0;
                 $result = array();
                 while($rowOrder = mysqli_fetch_array($orderback)){
                     $time = $rowOrder['OrderTime'];
                     $is_morethan = Dtime($time);
-                    if ($is_morethan == 1) {
+                    if (($is_morethan == 1)&&($rowOrder['Orderstatus'] != '4')) {
                         $result[$i]=$rowOrder;
                         $i++;
                     }
@@ -104,6 +116,68 @@
                 
                 echo json_encode(array($result));
 
+            }
+
+            if ($userType === '3') {
+                //normal order
+                
+                //get order which was responsible by this rep
+                $repName = $_SESSION['userName'];
+                $repPassword = $_SESSION['password'];
+
+                //get eID from database
+                $sqlForeID = "SELECT eID FROM cw2test1.rep WHERE username = '$repName' and password = '$repPassword';";
+                $e = $conn->query($sqlForeID);
+                $e1 = mysqli_fetch_array($e);
+                $eID = $e1['eID'];
+                
+                
+                //get order that with same eID
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE repID = '$eID';";
+                $orderback = $conn->query($sqlFororder);
+                    //order exceed time restrict
+                $i=0;
+                $result = array();
+                while($rowOrder = mysqli_fetch_array($orderback)){
+                    if ($rowOrder['Orderstatus'] != '4') {
+                        $result[$i]=$rowOrder;
+                        $i++;
+                    }   
+                }
+                $conn = NULL;
+                
+                echo json_encode(array($result));
+            }
+
+            if ($userType === '4') {
+                //order exceed rep quota
+                
+                //get order which was responsible by this rep
+                $repName = $_SESSION['userName'];
+                $repPassword = $_SESSION['password'];
+
+                //get eID from database
+                $sqlForeID = "SELECT eID FROM cw2test1.rep WHERE username = '$repName' and password = '$repPassword';";
+                $e = $conn->query($sqlForeID);
+                $e1 = mysqli_fetch_array($e);
+                $eID = $e1['eID'];
+                
+                
+                //get order that with same eID
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE repID = '$eID';";
+                $orderback = $conn->query($sqlFororder);
+                    //order exceed time restrict
+                $i=0;
+                $result = array();
+                while($rowOrder = mysqli_fetch_array($orderback)){
+                    if ($rowOrder['Orderstatus'] == '4') {
+                        $result[$i]=$rowOrder;
+                        $i++;
+                    }   
+                }
+                $conn = NULL;
+                
+                echo json_encode(array($result));
             }
 
             

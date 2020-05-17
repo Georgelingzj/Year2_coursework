@@ -78,6 +78,29 @@
             if ($userType == "repC") {
                 $sqlForlost = "SELECT * FROM cw2test1.rep WHERE 1;";
             }
+            else
+            {
+                //para is the customer ID
+
+                //get customer ID
+                $customer_ID = $_SESSION['cID'];
+                
+                $sqlForUserRegion = "SELECT region FROM cw2test1.customer WHERE cID = '$customer_ID';";
+                $region_result = $conn->query($sqlForUserRegion);
+
+                if(mysqli_num_rows($region_result) != 0)
+                {
+                    $row3 = mysqli_fetch_array($region_result);
+                    $regionForCustomer = $row3['region'];
+                    $sqlForlost = "SELECT * FROM cw2test1.rep WHERE region = '$regionForCustomer'";
+                }
+                else
+                {
+                    echo "error";
+                }
+                
+
+            }
             
             
             $back = $conn->query($sqlForlost);

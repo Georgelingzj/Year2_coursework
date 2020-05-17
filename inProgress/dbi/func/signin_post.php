@@ -33,10 +33,14 @@ if ( ( $_POST['username'] != null ) && ( $_POST['password'] != null ) ) {
             
             //user have already sign up in this system
             if (mysqli_num_rows($rows) >0) {
+                $c = mysqli_fetch_array($rows);
+                $_SESSION['cID'] = $c['cID'];
+
                 $_SESSION['userName'] = $userName;
                 $_SESSION['password'] = $passWord;
                 $_SESSION['userGroup'] = $userType;
                 $signinFlag = true;
+                
                 header('Location: ./../index.php');
             }
             else {
@@ -80,6 +84,8 @@ if ( ( $_POST['username'] != null ) && ( $_POST['password'] != null ) ) {
                 $_SESSION['password'] = $passWord;
                 $_SESSION['userGroup'] = $userType;
                 $signinFlag = true;
+
+                
             }
             
             if ($signinFlag == true) {

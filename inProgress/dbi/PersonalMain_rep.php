@@ -34,40 +34,126 @@
         else
         {
             $username = $_SESSION['userName'];
+            $password = $_SESSION['password'];
             
         }
         $isupdate = 1;
         $_SESSION['updateInfo'] = $isupdate;
+        $_SESSION['type'] = 4;
     ?>
    
     <script type = "text/javascript">
 
+            function cancel(target){
+                //e.preventDefault();
+                var name = $(target).text();
+                var name_string = name.split(" ");
+
+                var orderID = name_string[2];
                 
-            var url="./func/getPersonal.php";
+                var url = "./func/BuyMask?orderid="+ orderID + ".php";
+                window.location.href = url;
+                
+            }
+            
+            var url="./func/getPersonal?usertype=rep.php";
+            
             $(function(){
-            
-            $.getJSON(url,function(data){
+                
+
+                $.getJSON(url,function(data){
+                
+                var mydataOrder = JSON.stringify(data);
+                
+                mydataOrder = mydataOrder.slice(1,-1);
+                dataOb = JSON.parse(mydataOrder)
+
+                
+                
+                var html = '';
+                
+                        
+                    html = html + '<tr>';
+                    html = html + '<td>' + dataOb['eID'] + '</td>';
+                    html = html + '<td>' + dataOb['username'] + '</td>';
+                    html = html + '<td>' +dataOb['realname'] + '</td>';
+                    
+                    html = html + '<td>' + dataOb['telephone'] + '</td>';
+                    html = html + '<td>' + dataOb['email'] + '</td>';
+                    html = html + '<td>' +dataOb['region'] + '</td>';
+                    html = html + '<td>' + dataOb['quota'] + '</td>';
+                    html = html + '</tr>';
+                
+                $('#table1').append(html);
+
+                
                
-            
                 
-            // $("#mask1Storage").text(JSON.stringify(data));
-                var mydata = JSON.stringify(data);
-                var l = mydata.length;
-               
-                //slice data
-                mydata = mydata.slice(1,l-1);
                 
-                username = (JSON.parse(mydata))['usename'];
-                realname = (JSON.parse(mydata))['realname'];
-                passportID = (JSON.parse(mydata))['passportID'];
-                phone = (JSON.parse(mydata))['telephone'];
-                
-                document.getElementById("username").innerHTML = JSON.stringify((username)).slice(1,-1);
-                document.getElementById("realname").innerHTML = JSON.stringify((realname)).slice(1,-1);
-                document.getElementById("passportID").innerHTML = JSON.stringify((passportID)).slice(1,-1);
-                document.getElementById("phone").innerHTML = JSON.stringify((phone)).slice(1,-1);
             })
-            });
+            })
+           
+            var url1 = './func/getOrder?type=3.php';//normal order
+            var url2 = './func/getOrder?type=4.php';//order exceed quota
+            $(function(){
+                
+                
+                $.when($.getJSON(url2,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                   
+                    var html = '';
+                    for (var p in dataOb) {
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['cOrderID'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['CustomerName'] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['cID'] + "</div>"+ '</td>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['maskType1Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType2Num'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType3Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['OrderTime'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['Orderstatus'] +"</div>"+ '</td>';
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-danger m-2 my-sm-0" onclick = "cancel(this)">' + 'Cancel' +" " + "Order" +" " + dataOb[p]['cOrderID']   + '</a>'
+                        html = html + '</tr>';
+                    }
+                    $('#table2').append(html);
+                
+                }),
+
+                $.getJSON(url1,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                   
+                    var html = '';
+                    for (var p in dataOb) {
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' +dataOb[p]['cOrderID'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['CustomerName'] + '</td>';
+                        html = html + '<td>' +dataOb[p]['cID'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType1Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType2Num'] + '</td>';
+                        html = html + '<td>' +dataOb[p]['maskType3Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['OrderTime'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['Orderstatus'] + '</td>';
+                        html = html + '</tr>';
+                    }
+                    $('#table3').append(html);
+                
+                })
+
+                )
+            })
+                 
+            
+            
     </script>
 
     
@@ -108,9 +194,7 @@
         }
         .PI{
             margin-top:200px;
-            margin-left:50px;
-            
-            
+            margin-left:50px;            
         }
         .attri{
             float:left;
@@ -140,14 +224,20 @@
             padding: 50px;
         }
         th {
-            padding: 50px;
+            padding: 20px;
         }
         td{
-            padding-left:50px;
+            padding-left:20px;
             padding-top:10px;
             font-size:smaller;
         }
-        
+        #red{
+            color: red;
+        }
+        .PIsub{
+            margin-top:100px;
+            margin-left:50px;            
+        }
     </style>
     <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
@@ -185,47 +275,63 @@
     
     
     <main>
-        <div class="PI">
+        <div>
             <!--get personal info from database-->
-            <form action="costomer_sign_up?type=update.php" id="PerInfo" method="POST">
-                
-                <caption>
-                    <h4>Personal Infomation</h4>
-                </caption>
-                
-               
-                <div>
-                    
-                    <div class="attri">UserName</div>
-                    <div class = "username" id="username"></div>
-                </div>
+            <h3 class="PI">Personal Infomation</h3>
 
-                <br>
-                <div>
-                    <div class="attri">RealName</div>
-                    <div class = "username" id="realname"></div>
-                </div>
-                <br>
-                <div>
-                    <div class="attri">PassportID</div>
-                    <div class = "username" id="passportID"></div>
-                </div>
-                <br>
-                <div>
-                    <div class="attri">Telephone</div>
-                    <div class = "username" id="phone"></div>
-                </div>
+            <table id = "table1">
+                <tr>
+                    <th>employee ID</th>
+                    <th>Username</th>
+                    <th>Realname</th>
+                    <th>Telephone</th>
+                    <th>email</th>
+                    <th>Region</th>
+                    <th>quota</th>
+                </tr>
 
-                <br>
-                <div>
-                    <div class="attri">Region</div>
-                    <div class = "username" id="region"></div>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary PB">Update Personal Info</button>
-            </form>
+            </table>
+            <div id = "addinfo"></div>
         </div>
+
+        <div>
+            <h3 class = "PI">Orders you are responsible for</h3>
+
+            <h4 class = "PIsub">Order exceed your quota</h4>
+            <table id = "table2">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>maskType1 Num</th>
+                    <th>maskType2 Num</th>
+                    <th>maskType3 Num</th>
+                    <th>OrderTime</th>
+                    <th>Orderstatus</th>
+                    <th>Operation</th>
+                </tr>
+
+            </table>
+            <div id = "addinfo"></div>
+        </div>
+
+        <h4 class = "PIsub">Normal order</h4>
+            <table id = "table3">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>maskType1 Num</th>
+                    <th>maskType2 Num</th>
+                    <th>maskType3 Num</th>
+                    <th>OrderTime</th>
+                    <th>Orderstatus</th>
+                </tr>
+
+            </table>
+            <div id = "addinfo"></div>
+        </div>
+        
         
         
     </main>

@@ -47,8 +47,11 @@ create table CostomerOrderTotal(
 	
     cOrderID bigint primary key auto_increment,
     cID bigint not null,
+    CustomerName varchar(255) not null,
     maskType1Num int(10) not null,
     maskType2Num int(10) not null,
 	maskType3Num int(10) not null,
-    OrderTime varchar(255) not null
+    OrderTime varchar(255) not null,
+    Orderstatus varchar(10) not null,
+    repID	varchar(50)
 );

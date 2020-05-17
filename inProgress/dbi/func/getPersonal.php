@@ -1,10 +1,7 @@
 <?php
     session_start();
     
-    //check which type user
-    $site = $_SERVER['QUERY_STRING'];
-    $result = preg_split("/[.]|=/",$site);
-    $userType = $result[1];
+    
     
     
     // check login status
@@ -46,33 +43,34 @@
             $UserName = $_SESSION['userName'];
             $PassWord = $_SESSION['password'];
 
+           
             $conn = new mysqli($servername, $username, $password, $dbname);
-           
-                //$sql = "SELECT maskNum FROM masksstorage WHERE maskName = 'mask1';";
-            $sql = "SELECT * FROM cw2test1.customer WHERE usename = '$UserName' AND password = '$PassWord';";
+
+            //check which type user
+            $site = $_SERVER['QUERY_STRING'];
+            $result = preg_split("/[.]|=/",$site);
+            $userType = $result[1];
             
+            if ($userType == 'customer') {
+                $sql = "SELECT * FROM cw2test1.customer WHERE usename = '$UserName' AND password = '$PassWord';";
+            }
             
-          
-          
-            // return books in json
+            if ($userType == 'rep') {
+                $sql = "SELECT * FROM cw2test1.rep WHERE username = '$UserName' AND password = '$PassWord';";
+            }
+
             $num = $conn->query($sql);
-           
-
-
             $row = mysqli_fetch_array($num);
-          
-            // echo $row['maskNum'];
-           
+            
+            $conn = NULL;
+
             $result = array();
             array_push($result,$row);
-           
-
-            
             $jsdata=json_encode($result);
             echo $jsdata;
            
-             
-            $conn = NULL;
+        
+            
         } catch (PDOException $e) {
             // 503 if database error
             header('HTTP/1.1 503 Service Temporarily Unavailable');

@@ -20,51 +20,6 @@
 
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     
-    <script type = "text/javascript">
-
-            
-            window.onload = function() {
-                var cID = <?php echo $username?>
-                alert("hello");
-            }
-
-            $(function(){
-            $.getJSON(url,function(data){
-                var mydata = JSON.stringify(data);
-                if (mydata === "[]") {
-                    //empty return
-                    document.getElementById("cwithout").innerHTML += "<div class = 'rc_none'>" +"No customer with complete info"+ "</div>";
-                    
-                }
-                else
-                {
-                    
-                    mydata = mydata.slice(1,-1);
-                    datac = JSON.parse(mydata)
-
-                    var html = '';
-				    for (var p in datac) {
-					    html = html + '<tr>';
-
-					    html = html + '<td>' + datac[p]['cID'] + '</td>';
-					    html = html + '<td>' +datac[p]['usename'] + '</td>';
-
-					    html = html + '</tr>';
-                        
-				    }
-				    $('#table1').append(html);
-                }
-            });
-            })
-
-      
-    </script>
-
-    
-</head>
-
-
-<body>
     <?php
         // check login status
         session_start();
@@ -77,10 +32,81 @@
         else
         {
             $username = $_SESSION['userName'];
+            $password = $_SESSION['password'];
         }
         $type = 1;
         $_SESSION['type'] = $type;
+        // $cID_font = $_SESSION['cID'];
+
+        //get cID
+        $cID_font = $_SESSION['cID'];
+
+        //get type
+        $type = $_SESSION['type'];
+        $_SESSION['type'] = $type;
+
+        //get number
+        $NumOfMask = $_POST['numOfPurchaes'];
+        $_SESSION['NumofMask'] = $NumOfMask;
+        
     ?>
+    <script type = "text/javascript">
+
+            
+            var cID_js ="<?php echo $cID_font?>";
+           
+            
+            var url1 = "./func/allocate?type="+ cID_js +".php"
+            
+            $(function(){
+                
+            $.getJSON(url1,function(data){
+                
+                var mydata = JSON.stringify(data);
+                
+                if (mydata == "[[]]") {
+                    //empty return
+                   
+                    document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"No Reps in the same region"+ "</div>";
+                    document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"Plz press report button"+ "</div>";
+                    
+                    
+                }
+                else
+                {
+                    
+                    mydata = mydata.slice(1,-1);
+                    datac = JSON.parse(mydata)
+
+                    var html = '';
+				    for (var p in datac) {
+					    html = html + '<tr>';
+
+					    html = html + '<td>' + datac[p]['eID'] + '</td>';
+					    html = html + '<td>' +datac[p]['region'] + '</td>';
+                        html = html + '<td>' +datac[p]['quota'] + '</td>';
+
+					    html = html + '</tr>';
+                        
+				    }
+				    $('#table1').append(html);
+                }
+            });
+            })
+
+            function report() {
+                alert("hello");
+            }
+
+      
+    </script>
+
+    
+</head>
+
+
+<body>
+    
     <style>
         footer{
             position: fixed;
@@ -172,7 +198,7 @@
             border-color:brown;
         }
         .subtitle{
-            margin-top: 150px;
+            margin-top: 100px;
             text-align: center;
         }
         .subtitle1{
@@ -204,7 +230,10 @@
         .buttoninside2{
             position: absolute;
             margin-top: 100px;
-            margin-left: 50px;
+            margin-left: 100px;
+        }
+        .rc_none{
+            text-align: center;
         }
     </style>
     <header>
@@ -235,16 +264,18 @@
     
     <main>
         <div>
-            <div class="subtitle">
+            <!-- <div class="subtitle">
                 <h3>Reps Selection</h3>
-            </div>
+            </div> -->
+
             <div class="box2sub1">
                 <div class="subtitle1">
                     <h4>Please select rep</h4>
                 </div>
 
                 <div>
-                    <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm">
+                    <!-- <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm"> -->
+                    <form action="./func/BuyMask.php" class="boxinside" method="POST" id="customerForm">
                         
         
                         <div class="boxinside">
@@ -255,11 +286,10 @@
                         <div class="buttoninside">
                             <button type="submit" class="btn btn-info mt-3 mb-s3">Select</button>
                         </div>
-
-                        <div class="buttoninside2">
-                            <button type="submit" class="btn btn-info mt-3 mb-3">Report no qualified reps</button>
-                        </div>
                     </form>
+                    <div class="buttoninside2">
+                        <button type="button" class="btn btn-info mt-3 mb-3" onclick = "report();">Report no qualified reps</button>
+                    </div>
 
                 </div>
             </div>
@@ -280,6 +310,8 @@
 
                     </table>
                 </div>
+
+                <div id = "without"></div>
             </div>
 
         </div>

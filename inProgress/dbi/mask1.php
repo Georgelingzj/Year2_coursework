@@ -191,7 +191,7 @@
                
             <div class="num">
                 <div class="sold">
-                    <form action="func/BuyMask.php" method="POST">
+                    <form action="./repSelect.php" method="POST">
                         <label for="">Purchase quantity</label>
                         <input type="text" name="numOfPurchaes" id = "numOfPurchase">
                         (Pc)

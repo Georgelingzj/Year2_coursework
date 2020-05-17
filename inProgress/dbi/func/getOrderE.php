@@ -63,7 +63,7 @@
             $cID = (int)$row['cID'];
             
             
-            $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE cID = '$cID';";
+            $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE cID = '$cID' and Orderstatus = '1';";
             $orderback = $conn->query($sqlFororder);
 
             if ($userType === '1') {
@@ -73,7 +73,7 @@
                 while($rowOrder = mysqli_fetch_array($orderback)){
                     $time = $rowOrder['OrderTime'];
                     $is_morethan = Dtime($time);
-                    if ($is_morethan === -1) {
+                    if (($is_morethan === -1)&&($rowOrder['Orderstatus'] != '4')) {
                         $result[$i]=$rowOrder;
                         $i++;
                     }
@@ -92,7 +92,7 @@
                 while($rowOrder = mysqli_fetch_array($orderback)){
                     $time = $rowOrder['OrderTime'];
                     $is_morethan = Dtime($time);
-                    if ($is_morethan == 1) {
+                    if (($is_morethan == 1)&&($rowOrder['Orderstatus'] != '4')) {
                         $result[$i]=$rowOrder;
                         $i++;
                     }

@@ -68,6 +68,31 @@
                 }
 
             }
+            if ($userType == 'customer') {
+                //customer assign
+                $repID = $_POST['repID'];
+
+                //look for rep's username
+                $sqlForRname = "SELECT username FROM cw2test1.rep WHERE eID = '$repID'; ";
+                $row1 = $conn->query($sqlForRname);
+                $a = mysqli_fetch_array($row1);
+                $rep_name = $a['username'];
+
+                //get customer ID
+                $customer_ID = $_SESSION['cID'];
+                //update customer's repID and repname
+                $sqlForAssignCustomer = "UPDATE cw2test1.customer SET repID = '$repID', repUsername = '$rep_name' WHERE cID = '$customer_ID';";
+
+                //update quota of reps
+                
+                $isComplete = $conn->query($sqlForAssignCustomer);
+                if ($isComplete != 0) {
+                    header('Location: ./../index.php');
+                }
+                else {
+                    header('Location: ./../503.php');
+                }
+            }
            
             
             

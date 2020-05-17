@@ -29,7 +29,7 @@
         if(!isset($_SESSION['userName'])) // If session is not set then redirect to Login Page
         {
             $loginFlag = false;
-            $islog = -1;
+            $islog = -1; 
         }
         else
         {
@@ -38,34 +38,66 @@
         }
         $isupdate = 1;
         $_SESSION['updateInfo'] = $isupdate;
+
+        $_SESSION['type'] = 4;
     ?>
    
     <script type = "text/javascript">
 
+            function cancel(target){
+                //e.preventDefault();
+                var name = $(target).text();
+                var name_string = name.split(" ");
+
+                var orderID = name_string[2];
                 
-            var url="./func/getPersonal.php";
+                var url = "./func/BuyMask?orderid="+ orderID + ".php";
+                window.location.href = url;
+                
+            }
+            
+            
+            var url="./func/getPersonal?usertype=customer.php";
+            
             $(function(){
             
             $.getJSON(url,function(data){
-               
-            
+                
+                var mydataOrder = JSON.stringify(data);
+                
+                mydataOrder = mydataOrder.slice(1,-1);
+                dataOb = JSON.parse(mydataOrder)
+                
+                var html = '';
+                
+                        
+                    html = html + '<tr>';
+                    html = html + '<td>' + dataOb['usename'] + '</td>';
+                    html = html + '<td>' +dataOb['realname'] + '</td>';
+                    html = html + '<td>' + dataOb['passportID'] + '</td>';
+                    html = html + '<td>' + dataOb['telephone'] + '</td>';
+                    html = html + '<td>' +dataOb['region'] + '</td>';
+                    html = html + '</tr>';
+                
+                $('#table3').append(html);
                 
             // $("#mask1Storage").text(JSON.stringify(data));
-                var mydata = JSON.stringify(data);
-                var l = mydata.length;
+                
+                // var mydata = JSON.stringify(data);
+                // var l = mydata.length;
                
-                //slice data
-                mydata = mydata.slice(1,l-1);
+                // //slice data
+                // mydata = mydata.slice(1,l-1);
                 
-                username = (JSON.parse(mydata))['usename'];
-                realname = (JSON.parse(mydata))['realname'];
-                passportID = (JSON.parse(mydata))['passportID'];
-                phone = (JSON.parse(mydata))['telephone'];
+                // username = (JSON.parse(mydata))['usename'];
+                // realname = (JSON.parse(mydata))['realname'];
+                // passportID = (JSON.parse(mydata))['passportID'];
+                // phone = (JSON.parse(mydata))['telephone'];
                 
-                document.getElementById("username").innerHTML = JSON.stringify((username)).slice(1,-1);
-                document.getElementById("realname").innerHTML = JSON.stringify((realname)).slice(1,-1);
-                document.getElementById("passportID").innerHTML = JSON.stringify((passportID)).slice(1,-1);
-                document.getElementById("phone").innerHTML = JSON.stringify((phone)).slice(1,-1);
+                // document.getElementById("username").innerHTML = JSON.stringify((username)).slice(1,-1);
+                // document.getElementById("realname").innerHTML = JSON.stringify((realname)).slice(1,-1);
+                // document.getElementById("passportID").innerHTML = JSON.stringify((passportID)).slice(1,-1);
+                // document.getElementById("phone").innerHTML = JSON.stringify((phone)).slice(1,-1);
             })
             });
 
@@ -80,20 +112,21 @@
                     var mydataOrder = JSON.stringify(dataOrder);
                     mydataOrder = mydataOrder.slice(1,-1);
                     dataOb = JSON.parse(mydataOrder)
-                    var i = 0;
-                   
+                    
+                    var html = '';
                     for (var p in dataOb) {
                         
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['cOrderID']+ "</div>";
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['cID']+ "</div>";
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType1Num']+ "</div>";
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType2Num']+ "</div>";
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType3Num']+ "</div>";
-                        document.getElementById("addOrdersub1").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['OrderTime']+ "</div>";
-                       
-                        
-                        document.getElementById("addOrdersub1").innerHTML += "<br>"
+                        html = html + '<tr>';
+                        html = html + '<td>' + dataOb[p]['cOrderID'] + '</td>';
+                        html = html + '<td>' +dataOb[p]['cID'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType1Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType2Num'] + '</td>';
+                        html = html + '<td>' +dataOb[p]['maskType3Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['OrderTime'] + '</td>';
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "cancel(this)">' + 'Cancel' +" " + "Order" +" " + dataOb[p]['cOrderID']   + '</a>'
+                        html = html + '</tr>';
                     }
+                    $('#table1').append(html);
                 }),
                 //get order exceed time restrict
                 $.getJSON(urlForOrderExceed,function(dataOrder){
@@ -101,19 +134,21 @@
                     var mydataOrder = JSON.stringify(dataOrder);
                     mydataOrder = mydataOrder.slice(1,-1);
                     dataOb = JSON.parse(mydataOrder)
-                    var i = 0;
-                   
+                    
+                    var html = '';
                     for (var p in dataOb) {
                         
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['cOrderID']+ "</div>";
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['cID']+ "</div>";
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType1Num']+ "</div>";
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType2Num']+ "</div>";
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['maskType3Num']+ "</div>";
-                        document.getElementById("addOrdersub2").innerHTML += "<div class = 'orderdetail'>" +dataOb[p]['OrderTime']+ "</div>";
-                       
-                        document.getElementById("addOrdersub2").innerHTML += "<br>"
+
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" + dataOb[p]['cOrderID'] + "</div>" + '</td>';
+                        html = html + '<td>' +dataOb[p]['cID'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType1Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['maskType2Num'] + '</td>';
+                        html = html + '<td>' +dataOb[p]['maskType3Num'] + '</td>';
+                        html = html + '<td>' + dataOb[p]['OrderTime'] + '</td>';
+                        html = html + '</tr>';
                     }
+                    $('#table2').append(html);
                 })
                 )
             });
@@ -181,7 +216,7 @@
         .PB{
             margin-top: 100px;
             float:left;
-            margin-left: 100px;
+            margin-left: 50px;
         }
         .orderdetail{
             margin-top:20px;
@@ -190,10 +225,10 @@
             padding: 50px;
         }
         th {
-            padding: 50px;
+            padding: 30px;
         }
         td{
-            padding-left:50px;
+            padding-left:30px;
             padding-top:10px;
             font-size:smaller;
         }
@@ -235,44 +270,22 @@
     
     
     <main>
-        <div class="PI">
+        <div>
             <!--get personal info from database-->
+            <h3 class="PI">Personal Infomation</h3>
+
+            <table id = "table3">
+                <tr>
+                    <th>Username</th>
+                    <th>Realname</th>
+                    <th>PassportID</th>
+                    <th>Telephone</th>
+                    <th>Region</th>
+                </tr>
+
+            </table>
+            <div id = "addinfo"></div>
             <form action="costomer_sign_up?type=update.php" id="PerInfo" method="POST">
-                
-                <caption>
-                    <h4>Personal Infomation</h4>
-                </caption>
-                
-               
-                <div>
-                    
-                    <div class="attri">UserName</div>
-                    <div class = "username" id="username"></div>
-                </div>
-
-                <br>
-                <div>
-                    <div class="attri">RealName</div>
-                    <div class = "username" id="realname"></div>
-                </div>
-                <br>
-                <div>
-                    <div class="attri">PassportID</div>
-                    <div class = "username" id="passportID"></div>
-                </div>
-                <br>
-                <div>
-                    <div class="attri">Telephone</div>
-                    <div class = "username" id="phone"></div>
-                </div>
-
-                <br>
-                <div>
-                    <div class="attri">Region</div>
-                    <div class = "username" id="region"></div>
-                </div>
-
-
                 <button type="submit" class="btn btn-primary PB">Update Personal Info</button>
             </form>
         </div>
@@ -282,6 +295,7 @@
             <h3 class="PI">All Order</h3>
             
             <h5 class="suborder" id = "addOrder1">Orders &nbsp &nbsp (within 24 hours)</h5>
+
             <table id = "table1">
                 <tr>
                     <th>Order ID</th>
@@ -290,6 +304,7 @@
                     <th>MaskType2 Num</th>
                     <th>MaskType3 Num</th>
                     <th>Order Time</th>
+                    <th>Operation</th>
                 </tr>
 
             </table>

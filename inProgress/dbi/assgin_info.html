@@ -73,6 +73,23 @@
             border-style:solid;
             border-color:brown;
         }
+
+        .box11{
+            width: 400px;
+            height: 600px;
+            border-width: 3px;
+            border-style:solid;
+            border-color:brown;
+        }
+        .box2{
+            float: left;
+            width: 50px;
+        }
+        .box3{
+            float: right ;
+            width: 50px;
+        }   
+
         .formtitle{
             text-align: center;
         }
@@ -93,6 +110,7 @@
         .buttoninside{
             position: absolute;
             margin-top: 50px;
+            
         }
         
     </style>
@@ -137,37 +155,75 @@
         
     </div>
 
-    <div id="Customer" class="box1">
-        <h3 class="formtitle">Customer Info Assign</h3>
-        <div class="leftbox">
-            <h5 class="boxinside">Customer ID</h5>
-
-            <h5 class="boxinside">Rep ID</h5>
-
-            <!-- <h5 class="boxinside">Rep Quota</h5> -->
+    <div id="Customer">
+        <div class="box2">
+            <div class="box1">
+                <h3 class="formtitle">Customer Info Assign</h3>
+        
+                <div class="leftbox">
+                    <h5 class="boxinside">Customer ID</h5>
+        
+                    <h5 class="boxinside">Rep ID</h5>
+        
+                    <!-- <h5 class="boxinside">Rep Quota</h5> -->
+                </div>
+        
+                <div class="rightbox">
+                    <div id = "CustomerID"></div>
+                    
+                    <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm">
+                        <div class="boxinside">
+                            <input type="text" size="5" name="customerID">
+                        </div>
+        
+                        <div class="boxinside">
+                            <input type="text" size="10" name="repID">
+                        </div>
+        
+                        <div class="buttoninside">
+                            <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <div class="rightbox">
-            <div id = "CustomerID"></div>
-            
-            <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm">
-                <div class="boxinside">
-                    <input type="text" size="5" name="customerID">
+        <div class="box3">
+            <div class="box1">
+                <h3 class="formtitle">Customer Info Assign</h3>
+        
+                <div class="leftbox">
+                    <h5 class="boxinside">Customer ID</h5>
+        
+                    <h5 class="boxinside">Rep ID</h5>
+        
+                    <!-- <h5 class="boxinside">Rep Quota</h5> -->
                 </div>
-
-                <div class="boxinside">
-                    <input type="text" size="10" name="repID">
+        
+                <div class="rightbox">
+                    <div id = "CustomerID"></div>
+                    
+                    <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm">
+                        <div class="boxinside">
+                            <input type="text" size="5" name="customerID">
+                        </div>
+        
+                        <div class="boxinside">
+                            <input type="text" size="10" name="repID">
+                        </div>
+        
+                        <div class="buttoninside">
+                            <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="buttoninside">
-                    <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
-                </div>
-            </form>
+            </div>
         </div>
-
-        
-        
     </div>
+    
+
+
+    
 
     
 
