@@ -13,8 +13,32 @@
     <!-- DataTable -->
     <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="css/book_mask1.css" rel="stylesheet" type="text/css">
+    <!-- <script type = "text/javascript">
+        if ("<?php echo $loginFlag ?>" == false) {
+          
+        }
+    </script> -->
 </head>
 <body>
+  <?php
+        // check login status
+        session_start();
+        $username = "";
+        $loginFlag = true;
+        $islog = 1;
+        if(!isset($_SESSION['userName'])) // If session is not set then redirect to Login Page
+        {
+            $loginFlag = false;
+            $islog = -1;
+            echo "<script> alert('Please sign in');parent.location.href='/my_work1/index.php'; </script>"; 
+        }
+        else
+        {   
+            $username = $_SESSION['userName'];
+            $usertype = $_SESSION['userGroup'];
+            
+        }
+    ?>
     <style>
         footer{
             position: fixed;

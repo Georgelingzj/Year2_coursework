@@ -18,8 +18,6 @@
     
     <script type = "text/javascript" src = "js/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
-
-
 </head>
 <body>
     <style>
@@ -119,7 +117,7 @@
 
                                                 <div class="form-group">
                                                     <label for="InputPassword">Confirm your Password</label>
-                                                    <input type="password" class="form-control" id="InputPassword" placeholder="Enter Password" name="passwordc">
+                                                    <input type="password" class="form-control" id="InputPasswordc" placeholder="Enter Password" name="passwordc">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
@@ -334,7 +332,7 @@
     var part1 = url.split(/[.]|=/);
     var type = part1[1];
         
-        
+    
        
     if (type === "customer") { 
         var app = new Vue({
@@ -343,6 +341,49 @@
             type:'customer'
         }
         })
+
+       
+        $.when($(function(){
+
+            
+            //username more than 2 words but should be less than 100 words
+            $('#InputUsername').focus(function(){
+                
+                $('#InputUsername').text('');
+                
+            });
+            $('#InputUsername').blur(function(){
+                $("font#worry1").remove();
+               
+                var input = $(this).val();
+                var L = input.length;
+                if (L<3) {
+                    $('#InputUsername').after('<font id="worry1" color="red">username is too short</font>');
+                }
+                if (L>100) {
+                    $('#InputUsername').after('<font id="worry1" color="red">username is too long</font>');
+                }
+                
+            })
+        }),
+
+        // $(function(){
+        //     $('#InputEmail').focus(function(){
+        //         $('#InputEmail').text('');
+        //     })
+        //     $('#InputEmail').blur(function(){
+        //         $("font#worry2").remove();
+        //         var emailInput = $(this).val;
+
+        //         var reg =/^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/;
+        //         if(!reg.test(emailInput))
+        //         {
+        //             $('#InputEmail').after('<font id="worry2" color="red">Wrong Email Format</font>');
+        //         }
+        //     })
+        // }),
+
+        )
         
     }
     if (type === "reps") { 
@@ -372,6 +413,8 @@
         }
         )
     }
+
+
 
     
 </script>

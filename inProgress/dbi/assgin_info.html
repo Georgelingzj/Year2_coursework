@@ -36,20 +36,38 @@
         }
         
         var userID = getQueryVariable('userID');
+        var grand_type = getQueryVariable('grandtype');
         
         //decide which part of html to display
         window.onload = function(){
             var userType = getQueryVariable('userType');
             if (userType === "Rep") {
-                var t = document.getElementById('Customer');
-                t.style.display = 'none';
+                if (grand_type == 0) {
+                    var t1 = document.getElementById('Customer');
+                    t1.style.display = 'none';
+                    var t2 = document.getElementById('Rep1')
+                    t2.style.display = 'none';
+                    oFormElement = document.forms['repForm'];
+                    oFormElement['repID'].value = userID;
+                }
+                else
+                {
+                    var t1 = document.getElementById('Customer');
+                    t1.style.display = 'none';
+                    var t2 = document.getElementById('Rep')
+                    t2.style.display = 'none';
+
+                    oFormElement = document.forms['repForm1'];
+                    oFormElement['repID1'].value = userID;
+                }
                 
-                oFormElement = document.forms['repForm'];
-                oFormElement['repID'].value = userID;
             }
             else{
-                var t = document.getElementById('Rep');
-                t.style.display = 'none';
+                var t1 = document.getElementById('Rep');
+                t1.style.display = 'none';
+                var t2 = document.getElementById('Rep1')
+                t2.style.display = 'none';
+                 
                 oFormElement = document.forms['customerForm'];
                 oFormElement['customerID'].value = userID;
             }
@@ -150,11 +168,40 @@
                 </div>
             </form>
         </div>
-
-        
-        
     </div>
 
+        <div id="Rep1" class="box1">
+            <h3 class="formtitle">Rep Info Assign</h3>
+            <div class="leftbox">
+                <h5 class="boxinside">Rep ID</h5>
+    
+                <h5 class="boxinside">Rep Quota</h5>
+            </div>
+    
+            <div class="rightbox">
+                
+                
+                <form action="./func/assign?userType=repQuota.php" class="boxinside" method="POST" id="repForm1">
+                    <div class="boxinside">
+                        <input type="text" name="repID" id="repID1" size="5">
+                    </div>
+    
+    
+                    <div class="boxinside">
+                        <input type="text" size="10" name="quota">
+                    </div>
+    
+                    <div class="buttoninside">
+                        <button type="submit" class="btn btn-info mt-3 mb-3">Assign</button>
+                    </div>
+                </form>
+            </div>
+
+        
+        
+        </div>
+
+    
     <div id="Customer">
         <div class="box2">
             <div class="box1">

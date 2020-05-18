@@ -34,13 +34,13 @@
             $username = $_SESSION['userName'];
             $password = $_SESSION['password'];
         }
-        $type = 1;
-        $_SESSION['type'] = $type;
+        //$type = 1;
+        //$_SESSION['type'] = $type;
         // $cID_font = $_SESSION['cID'];
 
         //get cID
         $cID_font = $_SESSION['cID'];
-
+        
         //get type
         $type = $_SESSION['type'];
         $_SESSION['type'] = $type;
@@ -70,7 +70,8 @@
                     document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"No Reps in the same region"+ "</div>";
                     document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"Plz press report button"+ "</div>";
                     
-                    
+                    var t1 = document.getElementById('haveRep');
+                    t1.style.display = 'none';
                 }
                 else
                 {
@@ -95,7 +96,8 @@
             })
 
             function report() {
-                alert("hello");
+                
+                alert(cID_js);
             }
 
       
@@ -274,7 +276,7 @@
                 </div>
 
                 <div>
-                    <!-- <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm"> -->
+                    <div id = "haveRep">
                     <form action="./func/BuyMask.php" class="boxinside" method="POST" id="customerForm">
                         
         
@@ -287,6 +289,9 @@
                             <button type="submit" class="btn btn-info mt-3 mb-s3">Select</button>
                         </div>
                     </form>
+                    </div>
+                    <!-- <form action="./func/assign?userType=customer.php" class="boxinside" method="POST" id="customerForm"> -->
+                    
                     <div class="buttoninside2">
                         <button type="button" class="btn btn-info mt-3 mb-3" onclick = "report();">Report no qualified reps</button>
                     </div>

@@ -33,10 +33,15 @@
         {
             $loginFlag = false;
             $islog = -1;
+            echo "<script> alert('Please sign in');parent.location.href='/my_work1/index.php'; </script>"; 
         }
         else
         {
             $username = $_SESSION['userName'];
+            $usertype = $_SESSION['userGroup'];
+            if ($usertype != "manager") {
+                echo "<script> alert('Permission prohibited');parent.location.href='/my_work1/index.php'; </script>"; 
+            }
             
         }
     ?>
@@ -100,10 +105,12 @@
                 c.style.display = 'none';
                 d.style.display = '';
             }
-
+            
             var urlcustomer="./func/allocate?type=customer.php";
             var urlrep = "./func/allocate?type=rep.php"
             var urlrepC = "./func/allocate?type=repC.php"
+            var url5 = "./func/getOrderE?type=5.php";
+
             $(function(){
             
             $.when($.getJSON(urlcustomer,function(data){
@@ -142,10 +149,10 @@
                 }
             
             }),
-
+            
             $.getJSON(urlrep,function(data){
             
-                
+               
             
                 var mydata = JSON.stringify(data);
                 if (mydata === "[]") {
@@ -172,7 +179,7 @@
                        
                         html = html + '<td>' + datarep[p]['quota'] + '</td>';
                         // html = html + '<td>' + '<a href="οnclick=work(this)" id="" class="btn btn-outline-dark m-2 my-sm-0">' + 'Assign' +" " + "Rep" + datarep[p]['eID'] + " "  + '</a>'
-                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign region' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'+'</td>';
 					    html = html + '</tr>';
 
                     
@@ -211,27 +218,54 @@
                     html = html + '<td>' + datarep[p]['region'] + '</td>';
    
                     html = html + '<td>' + datarep[p]['quota'] + '</td>';
-                    html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Assign' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
-                    html = html + '</tr>';
-
-
- 
-    
-    
+                    if (datarep[p]['quota'] == null) {
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Grant' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+                    }
+                    else{
+                        if (datarep[p]['quota'] >0) {
+                            html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Update-Grant' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+                        }
+                        if (datarep[p]['quota'] <=0){
+                            html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-outline-dark m-2 my-sm-0" onclick = "work(this)">' + 'Re-Grant' +" " + "Rep" +" " + datarep[p]['eID']   + '</a>'
+                        }
+                    }
+                    html = html + '</tr>';    
                 }   
                 $('#table3').append(html);
 
                 }
 
-})
+            }),
+            
+            
+            $.getJSON(url5,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                   
+                    var html = '';
+                    for (var p in dataOb) {
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['cOrderID'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['CustomerName'] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['cID'] + "</div>"+ '</td>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['maskType1Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType2Num'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType3Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['OrderTime'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['Orderstatus'] +"</div>"+ '</td>';
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-danger m-2 my-sm-0" onclick = "cancel(this)">' + 'Cancel' +" " + "Order" +" " + dataOb[p]['cOrderID']   + '</a>'
+                        html = html + '</tr>';
+                    }
+                    $('#table4').append(html);
+                
+                }),
+            
 
             )})
-
-            $(function(){
-                function Repassign(){
-                aleart("hello");
-                }   
-            });
 
             function work(target) {
                 //e.preventDefault();
@@ -240,8 +274,19 @@
 
                 var userType = name_string[1];//reps or customer
                 var userID = name_string[2];//ID of reps or customer
-               
-                var url = "assgin_info?userType=" + userType + "&" + "userID=" + userID + ".html";
+                
+                var grand_type = 0;
+                if (name_string[0] == 'Grant') {
+                    grand_type = 1;
+                }
+                if (name_string[0] == 'Update-Grant') {
+                    grand_type = 2;
+                }
+                if (name_string[0] == 'Re-Grant') {
+                    grand_type = 3;
+                }
+                
+                var url = "assgin_info?userType=" + userType + "&" + "userID=" + userID + "&grandtype=" + grand_type+".html";
                 window.location.href = url;
                 
                 
@@ -322,7 +367,7 @@
         }
         td{
             padding:20px;
-            padding-top:10px;
+            
             font-size:smaller;
         }
         .PI2{
@@ -331,6 +376,12 @@
         .rc_none{
             /* align-self: center; */
             text-align: center;
+        }
+        #table4{
+            margin-top:50px;
+        }
+        #red{
+            color: red;
         }
         /* move special fonts to HTML head for better performance */
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700');
@@ -539,10 +590,48 @@ small.text-muted {
                             <div class="full col-sm-9">
                               
                                 <div id="news" class="d">
-                                    news
-                                
-                                </div>
+                                    <div class = "PI">
+                                        <div>
+                                            <h4>Order exceed rep's quota and exceed time limit</h4>
+                                        </div>
 
+                                        <table id = "table4">
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer ID</th>
+                                            <th>Customer Name</th>
+                                            <th>maskType1 Num</th>
+                                            <th>maskType2 Num</th>
+                                            <th>maskType3 Num</th>
+                                            <th>OrderTime</th>
+                                            <th>Orderstatus</th>
+                                            <th>Operation</th>
+                                        </tr>
+                                        </table>
+                                    </div>
+
+                                    <!-- <div class = "PI">
+                                        <div>
+                                            <h4>Customer have no same region reps</h4>
+                                        </div>
+
+                                        <table id = "table5">
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer ID</th>
+                                            <th>Customer Name</th>
+                                            <th>maskType1 Num</th>
+                                            <th>maskType2 Num</th>
+                                            <th>maskType3 Num</th>
+                                            <th>OrderTime</th>
+                                            <th>Orderstatus</th>
+                                            <th>Operation</th>
+                                        </tr>
+                                        </table>
+                                    </div>
+
+                                </div> -->
+                                
                                 <div id="allocate" class="d">
                                 <div class = "PI">
                                         <div>
