@@ -40,7 +40,12 @@
             })
             });
             
-
+            function Cart() {
+                document.myForm.method = "POST";
+                document.myForm.action = "./func/Cart?type=add.php";
+                document.myForm.submit();
+                return true;
+            }
       
     </script>
 </head>
@@ -178,7 +183,7 @@
 
             <div class="num">
                 <div class="sold">
-                    <form action="func/BuyMask.php" method="POST">
+                    <form action="./repSelect.php" method="POST" id = "myForm" name = "myForm">
                         <label for="">Purchase quantity</label>
                         <input type="text" name="numOfPurchaes">
                         (Pc)
@@ -187,7 +192,9 @@
                                 <button type="submit" class="btn btn-danger">Buy Now</button>
                             </div>
                             <div class="addCart">
-                                <button type="submit" class="btn btn-danger">Add To Cart</button>
+                                <!-- <button type="submit" class="btn btn-danger">Add To Cart</button> -->
+                                <!-- <a href="./func/Cart?type=add.php" type="submit" class="btn btn-danger">Add To Cart</a> -->
+                                <button type="submit" class="btn btn-danger" onclick = "Cart();">Add To Cart</button>
                             </div>
                         </div>
                     </form>

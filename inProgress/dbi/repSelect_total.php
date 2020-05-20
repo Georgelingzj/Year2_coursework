@@ -34,9 +34,6 @@
             $username = $_SESSION['userName'];
             $password = $_SESSION['password'];
         }
-        //$type = 1;
-        //$_SESSION['type'] = $type;
-        // $cID_font = $_SESSION['cID'];
 
         //get cID
         $cID_font = $_SESSION['cID'];
@@ -44,10 +41,6 @@
         //get type
         $type = $_SESSION['type'];
         $_SESSION['type'] = $type;
-
-        //get number
-        $NumOfMask = $_POST['numOfPurchaes'];
-        $_SESSION['NumofMask'] = $NumOfMask;
         
     ?>
     <script type = "text/javascript">
@@ -271,7 +264,7 @@
 
                 <div>
                     <div id = "haveRep">
-                    <form action="./func/BuyMask.php" class="boxinside" method="POST" id="customerForm">
+                    <form action="./func/getOrderE?type=6.php" class="boxinside" method="POST" id="customerForm">
                         
         
                         <div class="boxinside">

@@ -11,9 +11,7 @@ create table customer(
     telephone varchar(20) not null,
     email varchar(255) not null,
     region varchar(40) not null,
-    password varchar(255) not null,
-    repID int(10),
-    repUsername varchar(255)
+    password varchar(255) not null
 );
 
 create table rep(
@@ -53,5 +51,6 @@ create table CostomerOrderTotal(
 	maskType3Num int(10) not null,
     OrderTime varchar(255) not null,
     Orderstatus varchar(10) not null,
-    repID	varchar(50)
+    repID int(10),
+    repUsername varchar(255)
 );
