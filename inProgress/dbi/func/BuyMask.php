@@ -61,7 +61,7 @@ if ( ( $_SESSION['userName'] != null ) ) {
                 $q = $conn->query($sqlForRepquota);
                 $q1 = mysqli_fetch_array($q);
                 $q2 = (int)$q1['quota'];
-                $quota_update = $q2 + $m1s;
+                $quota_update = $q2 + $maskType1NumForCancel;
 
                 $sqlForUpdateQuota = "UPDATE cw2test1.rep SET quota = '$quota_update' WHERE eID = '$orderRepID';";
                 //orderstatus
@@ -97,7 +97,7 @@ if ( ( $_SESSION['userName'] != null ) ) {
                 $q = $conn->query($sqlForRepquota);
                 $q1 = mysqli_fetch_array($q);
                 $q2 = (int)$q1['quota'];
-                $quota_update = $q2 + $m2s;
+                $quota_update = $q2 + $maskType2NumForCancel;
 
                 $sqlForUpdateQuota = "UPDATE cw2test1.rep SET quota = '$quota_update' WHERE eID = '$orderRepID';";
                 //update order status to 3 -> canceled
@@ -128,7 +128,7 @@ if ( ( $_SESSION['userName'] != null ) ) {
                 $q = $conn->query($sqlForRepquota);
                 $q1 = mysqli_fetch_array($q);
                 $q2 = (int)$q1['quota'];
-                $quota_update = $q2 + $m3s;
+                $quota_update = $q2 + $maskType3NumForCancel;
 
                 $sqlForUpdateQuota = "UPDATE cw2test1.rep SET quota = '$quota_update' WHERE eID = '$orderRepID';";
                 //update order status to 3 -> canceled
@@ -238,7 +238,7 @@ if ( ( $_SESSION['userName'] != null ) ) {
                 //3 -> canceled
                 //4 -> order exceed rep's quota
                 //5 -> in shopping cart
-                $sqlOrder = "INSERT INTO cw2test1.costomerordertotal VALUES(null,'$cID','$userName','$num1','$num2','$num3','$timeString','1','$repID')";
+                $sqlOrder = "INSERT INTO cw2test1.costomerordertotal VALUES(null,'$cID','$userName','$num1','$num2','$num3','$timeString','2','$repID')";
             }
             
             //update the storage in database

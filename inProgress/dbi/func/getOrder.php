@@ -133,16 +133,14 @@
                 
                 
                 //get order that with same eID
-                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE repID = '$eID';";
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE repID = '$eID' and Orderstatus = '1';";
                 $orderback = $conn->query($sqlFororder);
                     //order exceed time restrict
                 $i=0;
                 $result = array();
                 while($rowOrder = mysqli_fetch_array($orderback)){
-                    if ($rowOrder['Orderstatus'] != '4') {
                         $result[$i]=$rowOrder;
                         $i++;
-                    }   
                 }
                 $conn = NULL;
                 
@@ -170,7 +168,9 @@
                 $i=0;
                 $result = array();
                 while($rowOrder = mysqli_fetch_array($orderback)){
-                    if ($rowOrder['Orderstatus'] == '4') {
+                    $time = $rowOrder['OrderTime'];
+                    $is_morethan = Dtime($time);
+                    if (($rowOrder['Orderstatus'] == '4')&&($is_morethan == -1)) {
                         $result[$i]=$rowOrder;
                         $i++;
                     }   
@@ -212,6 +212,36 @@
                 echo json_encode(array($result));
             }
 
+            if($userType == '6')
+            {
+                //order waiting for rep to confirm
+                //Orderstatus == 2(in progress)
+                $repName = $_SESSION['userName'];
+                $repPassword = $_SESSION['password'];
+
+                //get eID from database
+                $sqlForeID = "SELECT eID FROM cw2test1.rep WHERE username = '$repName' and password = '$repPassword';";
+                $e = $conn->query($sqlForeID);
+                $e1 = mysqli_fetch_array($e);
+                $eID = $e1['eID'];
+
+                
+                //get order that with same eID and Orderstatus == '2'
+                $sqlFororder = "SELECT * FROM cw2test1.costomerordertotal WHERE repID = '$eID' and Orderstatus = '2';";
+                $orderback = $conn->query($sqlFororder);
+
+                $i=0;
+                $result = array();
+                while($rowOrder = mysqli_fetch_array($orderback)){
+                    $result[$i]=$rowOrder;
+                    $i++; 
+                }
+                $conn = NULL;
+                
+                echo json_encode(array($result));
+
+            }
+
             
            // $orderlist = mysqli_fetch_array($orderback);
            
@@ -247,7 +277,7 @@
 
         // !!!! in test, use any mins you want
         // i use 2 mins
-        if($diff_mins > 800)
+        if($diff_mins > 1440)
         {
             //exceed 24 hours
             $result = 1;

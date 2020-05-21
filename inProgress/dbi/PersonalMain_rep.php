@@ -55,6 +55,15 @@
                 window.location.href = url;
                 
             }
+
+            function confirm(target) {
+                var name = $(target).text();
+                var name_string = name.split(" ");
+
+                var orderID = name_string[2];
+                var url = "./func/getOrderE?orderid="+ orderID + ".php";
+                window.location.href = url;
+            }
             
             var url="./func/getPersonal?usertype=rep.php";
             
@@ -93,14 +102,15 @@
             })
             })
            
-            var url1 = './func/getOrder?type=3.php';//normal order
+            var url1 = './func/getOrder?type=3.php';//complete  order
             var url2 = './func/getOrder?type=4.php';//order exceed quota
+            var url3 = './func/getOrder?type=6.php';//in progress order waiting for rep to confirm
             $(function(){
                 
                 
                 $.when($.getJSON(url2,function(data){
                     var mydataOrder = JSON.stringify(data);
-                
+                    
                     mydataOrder = mydataOrder.slice(1,-1);
                     dataOb = JSON.parse(mydataOrder);
                    
@@ -147,7 +157,34 @@
                     }
                     $('#table3').append(html);
                 
+                }),
+
+                $.getJSON(url3,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                   
+                    var html = '';
+                    for (var p in dataOb) {
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['cOrderID'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['CustomerName'] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['cID'] + "</div>"+ '</td>';
+                        html = html + '<td>' + "<div id = 'red'>" +dataOb[p]['maskType1Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType2Num'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" +dataOb[p]['maskType3Num'] + "</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['OrderTime'] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div id = 'red'>" + dataOb[p]['Orderstatus'] +"</div>"+ '</td>';
+                        html = html + '<td>' + '<a href="javascript:void(0)" id="" class="btn btn-warning m-2 my-sm-0" onclick = "confirm(this)">' + 'Confirm' +" " + "Order" +" " + dataOb[p]['cOrderID']   + '</a>' + "</td>";
+                        html = html + '</tr>';
+                    }
+                    $('#table4').append(html);
+                
                 })
+
 
                 )
             })
@@ -275,6 +312,7 @@
     
     
     <main>
+    
         <div>
             <!--get personal info from database-->
             <h3 class="PI">Personal Infomation</h3>
@@ -315,12 +353,31 @@
             <div id = "addinfo"></div>
         </div>
 
-        <h4 class = "PIsub">Normal order</h4>
-            <table id = "table3">
+        <div>
+            <h4 class = "PIsub">Orders waiting for confirmation</h4>
+            <table id = "table4">
                 <tr>
                     <th>Order ID</th>
                     <th>Customer ID</th>
                     <th>Customer Name</th>
+                    <th>maskType1 Num</th>
+                    <th>maskType2 Num</th>
+                    <th>maskType3 Num</th>
+                    <th>OrderTime</th>
+                    <th>Orderstatus</th>
+                    <th>Operation</th>
+                </tr>
+
+            </table>
+            <div id = "addinfor4"></div>
+        </div>
+
+        <h4 class = "PIsub">Completed order</h4>
+            <table id = "table3">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Customer ID</th>
                     <th>maskType1 Num</th>
                     <th>maskType2 Num</th>
                     <th>maskType3 Num</th>

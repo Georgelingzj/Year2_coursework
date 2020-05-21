@@ -34,6 +34,7 @@
         else
         {
             $username = $_SESSION['userName'];
+            $userGroup = $_SESSION['userGroup'];
             
         }
         $isupdate = 1;
@@ -152,7 +153,7 @@
                 })
                 )
             });
-           
+            
     </script>
 
     
@@ -249,9 +250,14 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link" href="manage.php">Manage</a>
+                    </li> -->
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="shopping_cart.php">Cart</a>
                     </li>
+                    
                 </ul>
                 
                 <span class="navbar-text" id="navUserName">

@@ -42,6 +42,8 @@
         $type = $_SESSION['type'];
         $_SESSION['type'] = $type;
         
+        $_SESSION['type'] = 5;
+        
     ?>
     <script type = "text/javascript">
 

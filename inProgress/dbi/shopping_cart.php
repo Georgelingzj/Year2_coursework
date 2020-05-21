@@ -28,24 +28,36 @@
                 $.getJSON(url1,function(dataOrder){
                     
                     var mydataOrder = JSON.stringify(dataOrder);
-                    mydataOrder = mydataOrder.slice(1,-1);
-                    dataOb = JSON.parse(mydataOrder)
                     
-                    var html = '';
-                    for (var p in dataOb) {
+                    if (mydataOrder == "[[]]") {
+                    //empty return
+                        document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"Nothing in your shopping cart"+ "</div>";
                         
-                        html = html + '<tr>';
-                        html = html + '<td>' + dataOb[p]['cOrderID'] + '</td>';
-                        html = html + '<td>' +dataOb[p]['cID'] + '</td>';
-                        html = html + '<td>' + dataOb[p]['maskType1Num'] + '</td>';
-                        html = html + '<td>' + dataOb[p]['maskType2Num'] + '</td>';
-                        html = html + '<td>' +dataOb[p]['maskType3Num'] + '</td>';
-                        html = html + '<td>' + dataOb[p]['OrderTime'] + '</td>';
-                        html = html + '</tr>';
+                    
                     }
+                    else
+                    {
+                        
+                        mydataOrder = mydataOrder.slice(1,-1);
+                        dataOb = JSON.parse(mydataOrder)
+                    
+                        var html = '';
+                        for (var p in dataOb) {
+                        
+                            html = html + '<tr>';
+                            html = html + '<td>' + dataOb[p]['cOrderID'] + '</td>';
+                            html = html + '<td>' +dataOb[p]['cID'] + '</td>';
+                            html = html + '<td>' + dataOb[p]['maskType1Num'] + '</td>';
+                            html = html + '<td>' + dataOb[p]['maskType2Num'] + '</td>';
+                            html = html + '<td>' +dataOb[p]['maskType3Num'] + '</td>';
+                            html = html + '<td>' + dataOb[p]['OrderTime'] + '</td>';
+                            html = html + '</tr>';
+                        }
 
                    
-                    $('#table1').append(html);
+                        $('#table1').append(html);
+                    }
+                    
                 })
         });
 
@@ -130,6 +142,10 @@
             margin-top:80px;
             margin-left:100px;
         }
+        .rc_none{
+            /* align-self: center; */
+            text-align: center;
+        }
     </style>
     <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
@@ -174,6 +190,7 @@
                         <th>Order Time</th>
                     </tr>
                 </table>
+                <div id = "without"></div>
             </div>
             <div class = "PI2">
             <button type="button" class="btn btn-info mt-3 mb-3" onclick = "Buy();">Buy All</button>

@@ -128,7 +128,7 @@
             
                 $sqlForIncaryOrder = "INSERT INTO cw2test1.costomerordertotal VALUES (null,'$cID','$UserName','$num1','$num2','$num3','$timeString','5',null);";
                 $orderback = $conn->query($sqlForIncaryOrder);
-                    //order exceed time restrict
+                
                 
                 $conn = NULL;
                 echo "<script> alert('Successful add to your cart');parent.location.href='/my_work1/book_mask.php'; </script>"; 
