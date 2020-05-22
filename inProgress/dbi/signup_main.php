@@ -81,15 +81,15 @@
                                             <form action="" id = "myForm">
                                                 <div class="btn-group-vertical">
                                                 <div>
-                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=customer.php'">Costomer</button>
+                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= './costomer_sign_up?type=customer.php'">Costomer</button>
                                                 </div>
 
                                                 <div>
-                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=reps.php'">reps</button>
+                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= './costomer_sign_up?type=reps.php'">reps</button>
                                                 </div>
 
                                                 <div>
-                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= 'costomer_sign_up?type=manager.php'">Manager</button>
+                                                <button type="button" class="btn btn-info mt-3 mb-3" onclick = "javascript:window.location.href= './costomer_sign_up?type=manager.php'">Manager</button>
                                                 </div>
                                                 </div>
                                                

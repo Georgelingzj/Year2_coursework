@@ -23,7 +23,7 @@
     
 </head>
 <body>
-    <?php
+    <!-- <?php
         // check login status
         session_start();
         $username = "";
@@ -45,12 +45,12 @@
             }
             
         }
-    ?>
+    ?> -->
 
      <script type = "text/javascript">
 
             window.onload = function() {
-                show1();
+                show4();
                 
             }
            
@@ -112,6 +112,9 @@
             var urlrepC = "./func/allocate?type=repC.php"
             var url5 = "./func/getOrderE?type=5.php";
 
+            var url6 = "./func/getData?type=1.php";
+            var url7 = "./func/getData?type=2.php";
+            var url8 = "./func/getData?type=3.php";
             $(function(){
             
             $.when($.getJSON(urlcustomer,function(data){
@@ -262,6 +265,101 @@
                     $('#table4').append(html);
                 
                 }),
+
+               
+                $.getJSON(url6,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                    
+                    document.getElementById("title_1_append").innerHTML += "<div class = ''>" +dataOb[0]+ "</div>";
+                    document.getElementById("title_2_append").innerHTML += "<div class = ''>" +dataOb[1]+ "</div>";
+                    document.getElementById("title_3_append").innerHTML += "<div class = ''>" +dataOb[2]+ "</div>";
+                    document.getElementById("title_4_append").innerHTML += "<div class = ''>" +dataOb[3]+ "</div>";
+                    document.getElementById("title_5_append1").innerHTML += "<div class = ''>" +dataOb[4]+ "</div>";
+                    document.getElementById("title_5_append2").innerHTML += "<div class = ''>" +dataOb[5]+ "</div>";
+
+                    document.getElementById("title_6_append1").innerHTML += "<div class = ''>" +dataOb[6]+ "</div>";
+                    document.getElementById("title_6_append2").innerHTML += "<div class = ''>" +dataOb[7]+ "</div>";
+                   
+                }),
+
+                $.getJSON(url7,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    //mydataOrder = mydataOrder.slice(1,-1);
+                   
+                    dataOb = JSON.parse(mydataOrder);
+                    var data1 = (dataOb[0]["1"]);
+                    
+                    var data2 = (dataOb[1]["2"]);
+                    var data3 = (dataOb[2]["3"]);
+                    
+                    var html = '';
+                    for (let index = 0; index < data1.length; index++) {
+                        
+                   
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" +data1[index] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div>" + data2[index] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div>" +data3[index] + "</div>"+ '</td>';
+                        html = html + '</tr>';
+                    
+                    
+                        
+                    }
+                    
+                    $('#table11').append(html);
+                    
+                    
+                   
+                    
+                }),
+
+                $.getJSON(url8,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    //mydataOrder = mydataOrder.slice(1,-1);
+                   
+                    dataOb = JSON.parse(mydataOrder);
+                    var data1 = (dataOb[0]["1"]);
+                    
+                    var data2 = (dataOb[1]["2"]);
+                    var data3 = (dataOb[2]["3"]);
+                    
+                    var html = '';
+                    for (let index = 0; index < data1.length; index++) {
+                        
+                   
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" +data1[index] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div>" + data3[index] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div>" +data2[index] + "</div>"+ '</td>';
+                        html = html + '</tr>';
+                    
+                    
+                        
+                    }
+                    
+                    $('#table12').append(html);
+
+                }),
+            
+            
             
 
             )})
@@ -520,10 +618,16 @@
         /* new add code, remember to copy to school linux machine */
         #total_normal{
             position:relative;
-            top:100px;
-            left:100px;
+            margin-top: 20px;
+            
             
         }
+        .title_1{
+            font-weight: 900;
+            font-size: 30px;
+        }
+        
+
         
     </style>
     <header>
@@ -748,8 +852,101 @@
                                <div id="data" class="d">
                                     <div id = "total_normal">
                                         <div class = "title_1">
-                                            Normal Order
+                                            Normal Total Completed Order
                                         </div>
+                                        <div id="title_1_append"></div>
+                                    </div>
+
+                                    <div id = "mask1_normal">
+                                        <div class = "title_1">
+                                            Mask1 Completed Order
+                                        </div>
+                                        <div id="title_2_append"></div>
+                                    </div>
+
+                                    <div id = "mask2_normal">
+                                        <div class = "title_1">
+                                            Mask2 Completed Order
+                                        </div>
+                                        <div id="title_3_append"></div>
+                                    </div>
+
+                                    <div id = "mask3_normal">
+                                        <div class = "title_1">
+                                            Mask3 Completed Order
+                                        </div>
+                                        <div id="title_4_append"></div>
+                                    </div>
+
+                                    <div id = "abnormal">
+                                        <div class = "title_1">
+                                            anomalies order number
+                                        </div>
+                                        <div id="title_5_append1"></div>
+
+                                        <div class = "title_1">
+                                            anomalies mask number
+                                        </div>
+                                        <div id="title_5_append2"></div>
+
+                                    </div>
+
+                                    <div id = "status2">
+                                        <div class = "title_1">
+                                            order number(under ordering)
+                                        </div>
+                                        <div id="title_6_append1"></div>
+
+                                        <div class = "title_1">
+                                            mask number(under ordering)
+                                        </div>
+                                        <div id="title_6_append2"></div>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <div class = "PI">
+                                            <div>
+                                                <h4>Rep Data</h4>
+                                            </div>
+    
+                
+                                        <table id = "table11" border="1">
+                                            <tr>
+                                                <th>Rep ID</th>
+                                                <th>Rep username</th>
+                                                <th>Rep Completed Order Number</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="repdata"></div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div>
+
+                                        <div class = "PI">
+                                            <div>
+                                                <h4>Customer Data</h4>
+                                            </div>
+    
+                
+                                        <table id = "table12" border="1">
+                                            <tr>
+                                                <th>Customer ID</th>
+                                                <th>Customer username</th>
+                                                <th>Customer Completed Order Number</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="customerdata"></div>
+                                        </div>
+    
                                     </div>
                                </div>
                                 

@@ -57,8 +57,7 @@
         var mydata = JSON.stringify(data);
         if (mydata === "[]") {
         //empty return
-            document.getElementById("cwithout").innerHTML += "<div class = 'rc_none'>" +"No customer with complete info"+ "</div>";
-        
+            document.getElementById("cwithout").innerHTML += "<div class = 'rc_none'>" +"No Register Customer   "+ "</div>";
         }
         else
         {
@@ -78,8 +77,7 @@
                 html = html + '<td>' +datac[p]['telephone'] + '</td>';
                 html = html + '<td>' + datac[p]['email'] + '</td>';
                 html = html + '<td>' + datac[p]['region'] + '</td>';
-                html = html + '<td>' + datac[p]['repID'] + '</td>';
-                html = html + '<td>' + datac[p]['repUsername'] + '</td>';
+                html = html + '<td>' + datac[p]['password'] + '</td>';
                 
                 html = html + '</tr>';
             
@@ -94,7 +92,7 @@
         var mydata = JSON.stringify(data);
         if (mydata === "[]") {
             //empty return
-            document.getElementById("rwithout").innerHTML += "<div class = 'rc_none'>" +"No rep with complete info"+ "</div>";
+            document.getElementById("rwithout").innerHTML += "<div class = 'rc_none'>" +"No Register Rep"+ "</div>";
         
         }
         else
@@ -252,7 +250,7 @@
     <main>
     <div class = "PI">
             <div>
-                <h4>Rep List</h4>
+                <h4>Register Reps</h4>
             </div>
 
             
@@ -277,7 +275,7 @@
         
         <div class = "PI">
             <div>
-                <h4>Customer List</h4>
+                <h4>Register Customers</h4>
             </div>
 
             
@@ -291,9 +289,7 @@
                     <th>telephone</th>
                     <th>email</th>
                     <th>region</th>
-                    <th>repID</th>
-                    <th>repUsername</th>
-                    
+                    <th>password</th>
                 </tr>
 
                 

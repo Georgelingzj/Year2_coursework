@@ -330,7 +330,7 @@
     //get url variable string
     var url = location.search;
     var part1 = url.split(/[.]|=/);
-    var type = part1[1];
+    var type = part1[-2];
         
     
        

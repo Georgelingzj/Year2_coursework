@@ -24,7 +24,7 @@ if ( ( $_SESSION['userName'] != null ) ) {
         
         $conn = new mysqli($servername, $username, $password, $dbname);
        
-        if ($_SESSION['type'] == 4) {
+        if (($_SESSION['type'] == 4)||($_SESSION['type'] == 5)) {
             //for cancel order which is in restricted time
             $site = $_SERVER['QUERY_STRING'];
             $result = preg_split("/[.]|=/",$site);
@@ -146,6 +146,9 @@ if ( ( $_SESSION['userName'] != null ) ) {
             $conn = NULL;
             if ($_SESSION['userGroup'] == "reps") {
                 echo "<script> alert('Cancel Successfully');parent.location.href='/my_work1/PersonalMain_rep.php'; </script>"; 
+            }
+            elseif ($_SESSION['userGroup'] == 'manager') {
+                echo "<script> alert('Cancel Successfully');parent.location.href='/my_work1/manager_main.php'; </script>"; 
             }
             else {
                 
