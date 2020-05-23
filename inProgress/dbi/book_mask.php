@@ -69,7 +69,7 @@
                         <a class="nav-link" href="book_mask.php">Book Mask<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="manage.php">Manage</a>
+                        <a class="nav-link" href="manager_main.php">Manage</a>
                     </li>
                 </ul>
                 <a href="./func/signout_post.php" id="navSignOut" class="btn btn-outline-dark m-2 my-sm-0">Sign Out</a>

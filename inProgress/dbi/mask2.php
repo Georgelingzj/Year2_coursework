@@ -141,9 +141,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manage.php">Manage</a>
-                    </li>
+                    
                 </ul>
                 <span class="navbar-text" id="navUserName">
                     Welcome, <?php echo $username?>&nbsp;&nbsp;
@@ -165,7 +163,7 @@
             </div>
             <div class="price_background">
                 <div class="price">
-                    <strong>Price: &nbsp;</strong> &nbsp &nbsp &nbsp &nbsp  <strong class="price_color">&#36 17.05 </strong>/50Pc
+                    <strong>Price: &nbsp;</strong> &nbsp &nbsp &nbsp &nbsp  <strong class="price_color">&#36 17.05 </strong>/Pc
                 </div>
             </div>
             <!-- get sold data from data base-->

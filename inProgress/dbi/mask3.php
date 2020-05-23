@@ -145,9 +145,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manage.php">Manage</a>
-                    </li>
+                   
                 </ul>
                 <span class="navbar-text" id="navUserName">
                     Welcome, <?php echo $username?>&nbsp;&nbsp;

@@ -19,6 +19,8 @@
     <script type = "text/javascript" src = "js/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v5.js"></script>
    
     
 </head>
@@ -33,7 +35,7 @@
         {
             $loginFlag = false;
             $islog = -1;
-            echo "<script> alert('Please sign in');parent.location.href='/my_work1/index.php'; </script>"; 
+            echo "<script> alert('Please sign in');parent.location.href='./index.php'; </script>"; 
         }
         else
         {
@@ -41,7 +43,7 @@
             $usertype = $_SESSION['userGroup'];
             $_SESSION['type'] = 5;
             if ($usertype != "manager") {
-                echo "<script> alert('Permission prohibited');parent.location.href='/my_work1/index.php'; </script>"; 
+                echo "<script> alert('Permission prohibited');parent.location.href='./index.php'; </script>"; 
             }
             
         }
@@ -50,7 +52,7 @@
      <script type = "text/javascript">
 
             window.onload = function() {
-                show1();
+                show4();
                 
             }
            
@@ -112,6 +114,12 @@
             var urlrepC = "./func/allocate?type=repC.php"
             var url5 = "./func/getOrderE?type=5.php";
 
+            var url6 = "./func/getData?type=1.php";
+            var url7 = "./func/getData?type=2.php";
+            var url8 = "./func/getData?type=3.php";
+            var url9 = "./func/getData?type=4.php";
+            var url10 = "./func/getData?type=5.php";
+            var url11 = "./func/getData?type=6.php";
             $(function(){
             
             $.when($.getJSON(urlcustomer,function(data){
@@ -262,6 +270,189 @@
                     $('#table4').append(html);
                 
                 }),
+
+                
+                $.getJSON(url6,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    dataOb = JSON.parse(mydataOrder);
+                    
+                    document.getElementById("title_1_append").innerHTML += "<div class = 'title_1_sub'>" +dataOb[0]+ "</div>";
+                    document.getElementById("title_2_append").innerHTML += "<div class = 'title_2_sub'>" +dataOb[1]+ "</div>";
+                    document.getElementById("title_3_append").innerHTML += "<div class = 'title_2_sub'>" +dataOb[2]+ "</div>";
+                    document.getElementById("title_4_append").innerHTML += "<div class = 'title_2_sub'>" +dataOb[3]+ "</div>";
+                    document.getElementById("title_5_append1").innerHTML += "<div class = 'title_2_sub'>" +dataOb[4]+ "</div>";
+                    document.getElementById("title_5_append2").innerHTML += "<div class = 'title_2_sub'>" +dataOb[5]+ "</div>";
+
+                    document.getElementById("title_6_append1").innerHTML += "<div class = 'title_1_sub'>" +dataOb[6]+ "</div>";
+                    document.getElementById("title_6_append2").innerHTML += "<div class = 'title_1_sub'>" +dataOb[7]+ "</div>";
+                   
+                }),
+
+                $.getJSON(url7,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    //mydataOrder = mydataOrder.slice(1,-1);
+                   
+                    dataOb = JSON.parse(mydataOrder);
+                    var data1 = (dataOb[0]["1"]);
+                    
+                    var data2 = (dataOb[1]["2"]);
+                    var data3 = (dataOb[2]["3"]);
+                    
+                    var html = '';
+                    for (let index = 0; index < data1.length; index++) {
+                        
+                   
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" +data1[index] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div>" + data3[index] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div>" +data2[index] + "</div>"+ '</td>';
+                        html = html + '</tr>';
+                    
+                    
+                        
+                    }
+                    
+                    $('#table11').append(html);
+                    
+                    
+                   
+                    
+                }),
+
+                $.getJSON(url8,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    //mydataOrder = mydataOrder.slice(1,-1);
+                   
+                    dataOb = JSON.parse(mydataOrder);
+                    var data1 = (dataOb[0]["1"]);
+                    
+                    var data2 = (dataOb[1]["2"]);
+                    var data3 = (dataOb[2]["3"]);
+                    
+                    var html = '';
+                    for (let index = 0; index < data1.length; index++) {
+                        
+                   
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" +data1[index] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div>" + data3[index] +"</div>"+  '</td>';
+                        html = html + '<td>' +"<div>" +data2[index] + "</div>"+ '</td>';
+                        html = html + '</tr>';
+                    
+                    
+                        
+                    }
+                    
+                    $('#table12').append(html);
+
+                }),
+
+                $.getJSON(url9,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    //mydataOrder = mydataOrder.slice(1,-1);
+                   
+                    dataOb = JSON.parse(mydataOrder);
+                    var data1 = (dataOb[0]["1"]);
+                    
+                    var data2 = (dataOb[1]["2"]);
+                   
+                    
+                    var html = '';
+                    for (let index = 0; index < data1.length; index++) {
+                        
+                   
+                        
+                        
+                        html = html + '<tr>';
+                        html = html + '<td>' + "<div>" +data1[index] +"</div>"+ '</td>';
+                        html = html + '<td>' +"<div>" +data2[index] + "</div>"+ '</td>';
+                        html = html + '</tr>';
+                    
+                    
+                        
+                    }
+                    
+                    $('#table13').append(html);
+
+                }),
+
+                $.getJSON(url10,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    
+                    dataOb = eval(mydataOrder);
+                    
+                    var html = '';
+
+                    html = html + '<tr>';
+                    html = html + '<td>' + "<div>" +dataOb[0] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[1] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[2] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[3] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[4] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[5] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[6] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[7] +"</div>"+ '</td>';
+                    
+                        
+                    html = html + '</tr>';
+
+                    $('#table14').append(html);
+
+                }),
+
+                $.getJSON(url11,function(data){
+                    var mydataOrder = JSON.stringify(data);
+                    
+                    if (mydataOrder == "[[]]") {
+                        // document.getElementById("ewith").innerHTML += "<div class = 'rc_none'>" +"No Such Order"+ "</div>";
+                    }
+                    mydataOrder = mydataOrder.slice(1,-1);
+                    
+                    dataOb = eval(mydataOrder);
+                    
+                    var html = '';
+
+                    html = html + '<tr>';
+                    html = html + '<td>' + "<div>" +dataOb[0] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[1] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[2] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[3] +"</div>"+ '</td>';
+                    html = html + '<td>' + "<div>" +dataOb[4] +"</div>"+ '</td>';
+                   
+                        
+                    html = html + '</tr>';
+
+                    $('#table15').append(html);
+
+                }),
+            
+            
             
 
             )})
@@ -305,6 +496,8 @@
                 window.location.href = url;
                 
             }
+
+            
 
             
     </script>
@@ -520,10 +713,37 @@
         /* new add code, remember to copy to school linux machine */
         #total_normal{
             position:relative;
-            top:100px;
-            left:100px;
+            margin-top: 20px;
+            
             
         }
+        .title_1{
+            font-weight: 600;
+            font-size: 30px;
+            margin-top: 20px;
+            
+        }
+        .title_1_sub{
+            font-weight: 200;
+            font-size: 25px;
+            display: inline;
+            margin-left: 100px;
+            color: brown;
+            
+        }
+        .title_2_sub{
+            font-weight: 200;
+            font-size: 25px;
+            display: inline;
+            margin-left: 190px;
+            color: brown;
+            
+        }
+        .PI_sub{
+            margin-top: 50px;
+        }
+        
+
         
     </style>
     <header>
@@ -747,10 +967,170 @@
 
                                <div id="data" class="d">
                                     <div id = "total_normal">
-                                        <div class = "title_1">
-                                            Normal Order
+                                        <div class = "title_1" id="title_1_append">
+                                            Normal Total Completed Order
                                         </div>
                                     </div>
+
+                                    <div id = "mask1_normal">
+                                        <div class = "title_1" id="title_2_append">
+                                            Mask1 Completed Order
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div id = "mask2_normal">
+                                        <div class = "title_1" id="title_3_append">
+                                            Mask2 Completed Order
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div id = "mask3_normal">
+                                        <div class = "title_1" id="title_4_append">
+                                            Mask3 Completed Order
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div id = "abnormal">
+                                        <div class = "title_1" id="title_5_append1">
+                                            anomalies order number
+                                        </div>
+                                       
+
+                                        <div class = "title_1" id="title_5_append2">
+                                            anomalies mask number
+                                        </div>
+                                     
+
+                                    </div>
+
+                                    <div id = "status2">
+                                        <div class = "title_1"  id="title_6_append1">
+                                            order number(under ordering)
+                                        </div>
+                                       
+                                    </div>
+
+
+                                    <div>
+
+                                        <div class = "PI_sub">
+                                            <div>
+                                                <h4>Rep Data</h4>
+                                            </div>
+    
+                
+                                        <table id = "table11" border="1">
+                                            <tr>
+                                                <th>Rep ID</th>
+                                                <th>Rep username</th>
+                                                <th>Rep Completed Order Number</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="repdata"></div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div>
+
+                                        <div class = "PI_sub">
+                                            <div>
+                                                <h4>Customer Data</h4>
+                                            </div>
+    
+                
+                                        <table id = "table12" border="1">
+                                            <tr>
+                                                <th>Customer ID</th>
+                                                <th>Customer username</th>
+                                                <th>Customer Completed Order Number</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="customerdata"></div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div>
+
+                                        <div class = "PI_sub">
+                                            <div>
+                                                <h4>Region Data</h4>
+                                            </div>
+    
+                
+                                        <table id = "table13" border="1">
+                                            <tr>
+                                                <th>Region</th>
+                                                <th>Region Completed Order Number</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="regiondata"></div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div>
+
+                                        <div class = "PI_sub">
+                                            <div>
+                                                <h4>Order Data In One Week</h4>
+                                            </div>
+    
+                
+                                        <table id = "table14" border="1">
+                                            <tr>
+                                                <th>Today</th>
+                                                <th>1 day before</th>
+                                                <th>2 day before</th>
+                                                <th>3 day before</th>
+                                                <th>4 day before</th>
+                                                <th>5 day before</th>
+                                                <th>6 day before</th>
+                                                <th>1 week before</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="data1"></div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div>
+
+                                        <div class = "PI_sub">
+                                            <div>
+                                                <h4>Order Data In Past Weeks</h4>
+                                            </div>
+    
+                
+                                        <table id = "table15" border="1">
+                                            <tr>
+                                                <th>This Week</th>
+                                                <th>1 Weeks before</th>
+                                                <th>2 Weeks before</th>
+                                                <th>3 Weeks before</th>
+                                                <th>1 Month before</th>
+                                            </tr>
+    
+                                        </table>
+                                        <!-- append rep without complete information-->
+                                        <div id="data1"></div>
+                                        </div>
+    
+                                    </div>
+
+
                                </div>
                                 
                                

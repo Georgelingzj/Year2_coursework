@@ -291,9 +291,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="manage.php">Manage</a>
-                    </li>
+                    
                 </ul>
                 
                 <span class="navbar-text" id="navUserName">

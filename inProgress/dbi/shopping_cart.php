@@ -22,7 +22,7 @@
     <script type = "text/javascript">
 
         var url1 = './func/getOrder?type=5.php';
-        
+       
         $(function(){
                 
                 $.getJSON(url1,function(dataOrder){
@@ -32,7 +32,10 @@
                     if (mydataOrder == "[[]]") {
                     //empty return
                         document.getElementById("without").innerHTML += "<div class = 'rc_none'>" +"Nothing in your shopping cart"+ "</div>";
+                        document.getElementById("is").innerHTML = "3";
                         
+                        var a = document.getElementById('is');
+                        a.style.display = 'none';
                     
                     }
                     else
@@ -60,9 +63,21 @@
                     
                 })
         });
-
+        
+        
         function Buy() {
-            window.location.href = "./repSelect_total.php";
+            var isHave = document.getElementById("is").innerHTML;
+            if(isHave == '3' )
+            {
+                alert("Empty Cart");
+                window.location.href = "./PersonalMain.php";
+                
+            }
+            else
+            {
+                window.location.href = "./repSelect_total.php";
+            }
+            
         }
     </script>
 </head>
@@ -161,9 +176,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manage.php">Manage</a>
-                    </li>
+                    
                 </ul>
                 <span class="navbar-text" id="navUserName">
                     Welcome, <?php echo $username?>&nbsp;&nbsp;
@@ -191,8 +204,9 @@
                     </tr>
                 </table>
                 <div id = "without"></div>
+                <div id = "is"></div>
             </div>
-            <div class = "PI2">
+            <div class = "PI2" id = "mybutton">
             <button type="button" class="btn btn-info mt-3 mb-3" onclick = "Buy();">Buy All</button>
             
             </div>

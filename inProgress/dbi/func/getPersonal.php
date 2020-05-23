@@ -90,7 +90,7 @@
             $conn = NULL;
 
            
-            //echo $jsdata;
+            echo $jsdata;
            
         
             

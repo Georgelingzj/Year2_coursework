@@ -49,6 +49,19 @@
                 document.myForm.submit();
                 return true;
             }
+
+//             $(document).ready(function(){
+//                 $("#numOfPurchase").change(function(){
+
+//                 var num= $("#numOfPurchase").val();
+//                 
+//                 var total=  float(12.03* num);
+//                 alert(total);
+//                 document.getElementById("total").innerHTML = total;
+//                 });
+//             })
+           
+
       
     </script>
 
@@ -152,9 +165,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="book_mask.php">Book Mask</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="manage.php">Manage</a>
-                    </li>
+                   
                 </ul>
                 <span class="navbar-text" id="navUserName">
                     Welcome, <?php echo $username?>&nbsp;&nbsp;  
@@ -177,6 +188,10 @@
             <div class="price_background">
                 <div class="price">
                     <strong>Price: &nbsp;</strong> &nbsp &nbsp &nbsp &nbsp  <strong class="price_color">&#36 12.03 </strong>/Pc
+                </div>
+
+                <div id = "total">
+
                 </div>
             </div>
             <!-- get storage from database-maskStorage   -->

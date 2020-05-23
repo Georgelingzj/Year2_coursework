@@ -28,11 +28,15 @@
         if(!isset($_SESSION['userName'])) // If session is not set then redirect to Login Page
         {
             $loginFlag = false;
+            echo "<script> alert('Permission prohibited');parent.location.href='./index.php'; </script>"; 
         }
         else
         {
             $username = $_SESSION['userName'];
             $password = $_SESSION['password'];
+            if ($usertype != "customer") {
+                echo "<script> alert('Permission prohibited');parent.location.href='./index.php'; </script>"; 
+            }
         }
         //$type = 1;
         //$_SESSION['type'] = $type;
