@@ -1,5 +1,5 @@
 # Year2_coursework
-## ×！Public my code AFTER WHOLE YEAR GRADES come out！×
+## *！Public my code AFTER WHOLE YEAR GRADES come out！*
 
 **Only for possible reference and personal record**
 
