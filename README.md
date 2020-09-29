@@ -1,8 +1,5 @@
 # Year2_coursework
-part of courseworks in computer science
-
-public my code after the results come out
-
+## ×！Public my code AFTER WHOLE YEAR GRADES come out！×
 
 **Only for possible reference and personal record**
 
